@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Compiled translation catalogs are rebuilt by build_locales.sh
+locale/*/LC_MESSAGES/*.mo
+
+# Local output and scratch
+Diaporama/
+*.tmp
+*.old
+*.avant
+*.avant[0-9]

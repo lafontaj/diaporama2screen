@@ -1,0 +1,501 @@
+# Catalogue français de diaporama2screen.
+# Les chaînes sources sont en anglais ; ce fichier est produit par
+# locale/traduire_fr.py puis compilé par build_locales.sh.
+msgid ""
+msgstr ""
+"Project-Id-Version: diaporama2screen\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "reading the captions"
+msgstr "lire les légendes"
+
+msgid "laying out the images"
+msgstr "mettre les images en page"
+
+msgid "measuring the caption band"
+msgstr "mesurer le bandeau de légende"
+
+msgid "encoding the video"
+msgstr "encoder la vidéo"
+
+msgid "inspecting the music files"
+msgstr "examiner les fichiers de musique"
+
+msgid "Some required programs are missing:"
+msgstr "Des programmes nécessaires sont absents :"
+
+msgid "Install them with:"
+msgstr "Installez-les avec :"
+
+msgid "The desktop folder could not be found."
+msgstr "Le dossier du bureau est introuvable."
+
+msgid "the file still holds its old caption"
+msgstr "le fichier porte encore son ancienne légende"
+
+msgid "No DejaVu font found; captions will use the ImageMagick default."
+msgstr "Aucune police DejaVu trouvée ; les légendes utiliseront la police par défaut d'ImageMagick."
+
+msgid "Laying out the images"
+msgstr "Mise en page des images"
+
+msgid "Caption unusable for {name}"
+msgstr "Légende inutilisable pour {name}"
+
+msgid "Could not read {name}"
+msgstr "Lecture impossible : {name}"
+
+msgid "Joining {n} pieces of music"
+msgstr "Assemblage de {n} pièces musicales"
+
+msgid "The music could not be joined; the video will be silent."
+msgstr "La musique n'a pas pu être assemblée ; la vidéo sera muette."
+
+msgid "Encoding the video"
+msgstr "Encodage de la vidéo"
+
+msgid "No image could be produced."
+msgstr "Aucune image n'a pu être produite."
+
+msgid "Choose a folder"
+msgstr "Choisir un dossier"
+
+msgid "Add photos"
+msgstr "Ajouter des photos"
+
+msgid "Images"
+msgstr "Images"
+
+msgid "All files"
+msgstr "Tous les fichiers"
+
+msgid "Add music files"
+msgstr "Ajouter des fichiers de musique"
+
+msgid "Audio files"
+msgstr "Fichiers audio"
+
+msgid "Open"
+msgstr "Ouvrir"
+
+msgid "Save as"
+msgstr "Enregistrer sous"
+
+msgid "The file “{f}” already exists. Replace it?"
+msgstr "Le fichier « {f} » existe déjà. Le remplacer ?"
+
+msgid "Replace"
+msgstr "Remplacer"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Yes"
+msgstr "Oui"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Save"
+msgstr "Enregistrer"
+
+msgid "Discard"
+msgstr "Abandonner"
+
+msgid "New project"
+msgstr "Nouveau projet"
+
+msgid "Open…"
+msgstr "Ouvrir…"
+
+msgid "Save as…"
+msgstr "Enregistrer sous…"
+
+msgid "Quit"
+msgstr "Quitter"
+
+msgid "File"
+msgstr "Fichier"
+
+msgid "System language"
+msgstr "Langue du système"
+
+msgid "Language"
+msgstr "Langue"
+
+msgid "Install a launcher…"
+msgstr "Installer un lanceur…"
+
+msgid "Remove the launcher"
+msgstr "Retirer le lanceur"
+
+msgid "Required programs"
+msgstr "Programmes nécessaires"
+
+msgid "Tools"
+msgstr "Outils"
+
+msgid "About"
+msgstr "À propos"
+
+msgid "Help"
+msgstr "Aide"
+
+msgid "Add photos…"
+msgstr "Ajouter des photos…"
+
+msgid "Remove from the slideshow"
+msgstr "Retirer du diaporama"
+
+msgid "Re-read the captions"
+msgstr "Relire les légendes"
+
+msgid "Write captions into the files…"
+msgstr "Écrire les légendes dans les fichiers…"
+
+msgid "Caption"
+msgstr "Légende"
+
+msgid "Top"
+msgstr "Début"
+
+msgid "Up"
+msgstr "Monter"
+
+msgid "Down"
+msgstr "Descendre"
+
+msgid "Bottom"
+msgstr "Fin"
+
+msgid "Sort by name"
+msgstr "Trier par nom"
+
+msgid "Sort by date"
+msgstr "Trier par date"
+
+msgid "Select a photo to see it here."
+msgstr "Sélectionnez une photo pour la voir ici."
+
+msgid "Restore the file's caption"
+msgstr "Rétablir la légende du fichier"
+
+msgid "Write into the file"
+msgstr "Écrire dans le fichier"
+
+msgid "file not found"
+msgstr "fichier introuvable"
+
+msgid "Empty slideshow. Add a folder or some photos to begin."
+msgstr "Diaporama vide. Ajoutez un dossier ou des photos pour commencer."
+
+msgid "{n} photos"
+msgstr "{n} photos"
+
+msgid "{n} with a caption"
+msgstr "{n} avec légende"
+
+msgid "{n} edited here only"
+msgstr "{n} modifiées ici seulement"
+
+msgid "{n} missing files"
+msgstr "{n} fichiers manquants"
+
+msgid "duration {d}"
+msgstr "durée {d}"
+
+msgid "This file no longer exists."
+msgstr "Ce fichier n'existe plus."
+
+msgid "This photo cannot be displayed:\n{reason}"
+msgstr "Cette photo ne peut pas être affichée :\n{reason}"
+
+msgid "no date"
+msgstr "sans date"
+
+msgid "Edited here only. In the file: {text}"
+msgstr "Modifiée ici seulement. Dans le fichier : {text}"
+
+msgid "(none)"
+msgstr "(aucune)"
+
+msgid "Read from the file."
+msgstr "Lue dans le fichier."
+
+msgid "This photo has no caption in its metadata."
+msgstr "Cette photo ne porte aucune légende dans ses métadonnées."
+
+msgid "This caption is already the one in the file. There is nothing to write."
+msgstr "Cette légende est déjà celle du fichier. Il n'y a rien à écrire."
+
+msgid "No caption has been edited here, so there is nothing to write."
+msgstr "Aucune légende n'a été modifiée ici, il n'y a rien à écrire."
+
+msgid "Write this caption into the photograph itself?\n\n{name}\n{caption}"
+msgstr "Écrire cette légende dans la photographie elle-même ?\n\n{name}\n{caption}"
+
+msgid "(empty)"
+msgstr "(vide)"
+
+msgid "Write {n} captions into the photographs themselves?"
+msgstr "Écrire {n} légendes dans les photographies elles-mêmes ?"
+
+msgid "The files are modified. digiKam will show the new captions once it re-reads them."
+msgstr "Les fichiers sont modifiés. digiKam affichera les nouvelles légendes dès qu'il les relira."
+
+msgid "Keep a copy of each original file (name_original)"
+msgstr "Conserver une copie de chaque fichier d'origine (nom_original)"
+
+msgid "Write into the files"
+msgstr "Écrire dans les fichiers"
+
+msgid "Write"
+msgstr "Écrire"
+
+msgid "{ok} captions written, {bad} failed:\n{detail}"
+msgstr "{ok} légendes écrites, {bad} en échec :\n{detail}"
+
+msgid "{n} captions written into the files."
+msgstr "{n} légendes écrites dans les fichiers."
+
+msgid "Choose the photos to add"
+msgstr "Choisir les photos à ajouter"
+
+msgid "Nothing added: those photos are already in the slideshow, or are not images."
+msgstr "Rien d'ajouté : ces photos sont déjà dans le diaporama, ou ne sont pas des images."
+
+msgid "None of these photos can be read."
+msgstr "Aucune de ces photos n'est lisible."
+
+msgid "{n} files are missing and will be left out. Continue?"
+msgstr "{n} fichiers sont manquants et seront laissés de côté. Continuer ?"
+
+msgid "Continue"
+msgstr "Continuer"
+
+msgid "“{f}” already exists. Replace it?"
+msgstr "« {f} » existe déjà. Le remplacer ?"
+
+msgid "The laid-out images go to:\n{images}\n\nThe video goes to:\n{video}\n\nNumbered images already in that folder are replaced."
+msgstr "Les images mises en page vont dans :\n{images}\n\nLa vidéo va dans :\n{video}\n\nLes images numérotées déjà présentes dans ce dossier sont remplacées."
+
+msgid "Produce"
+msgstr "Produire"
+
+msgid "Produce the video"
+msgstr "Produire la vidéo"
+
+msgid "untitled"
+msgstr "sans titre"
+
+msgid "This project has unsaved changes. Save it now?"
+msgstr "Ce projet comporte des modifications non enregistrées. L'enregistrer maintenant ?"
+
+msgid "Open a project"
+msgstr "Ouvrir un projet"
+
+msgid "Slideshow projects"
+msgstr "Projets de diaporama"
+
+msgid "This project could not be opened:\n{reason}"
+msgstr "Ce projet n'a pas pu être ouvert :\n{reason}"
+
+msgid "Save the project"
+msgstr "Enregistrer le projet"
+
+msgid "slideshow"
+msgstr "diaporama"
+
+msgid "This project could not be saved:\n{reason}"
+msgstr "Ce projet n'a pas pu être enregistré :\n{reason}"
+
+msgid "The language will change the next time the application starts."
+msgstr "La langue changera au prochain démarrage de l'application."
+
+msgid "Every required program is installed."
+msgstr "Tous les programmes nécessaires sont installés."
+
+msgid "Put diaporama2screen in the Graphics group of the menu, and a launcher on the desktop?"
+msgstr "Placer diaporama2screen dans le groupe Graphisme du menu, et un lanceur sur le bureau ?"
+
+msgid "An existing launcher will be replaced."
+msgstr "Un lanceur existant sera remplacé."
+
+msgid "Also put a launcher on the desktop"
+msgstr "Poser aussi un lanceur sur le bureau"
+
+msgid "Install a launcher"
+msgstr "Installer un lanceur"
+
+msgid "Install"
+msgstr "Installer"
+
+msgid "Launcher installed:"
+msgstr "Lanceur installé :"
+
+msgid "The menu may take a moment to notice it."
+msgstr "Le menu peut mettre un instant à s'en apercevoir."
+
+msgid "Launcher removed:"
+msgstr "Lanceur retiré :"
+
+msgid "No launcher was installed."
+msgstr "Aucun lanceur n'était installé."
+
+msgid "{app}\n\nBuild a photo slideshow with captions burnt into the image, ready to play on a television."
+msgstr "{app}\n\nMonter un diaporama photo avec la légende incrustée dans l'image, prêt à jouer sur un téléviseur."
+
+msgid "Folder:"
+msgstr "Dossier :"
+
+msgid "Change…"
+msgstr "Changer…"
+
+msgid "Parent folder"
+msgstr "Dossier parent"
+
+msgid "Include subfolders"
+msgstr "Inclure les sous-dossiers"
+
+msgid "Select all"
+msgstr "Tout cocher"
+
+msgid "Select none"
+msgstr "Tout décocher"
+
+msgid "Add"
+msgstr "Ajouter"
+
+msgid "No image in this folder."
+msgstr "Aucune image dans ce dossier."
+
+msgid "already in the slideshow"
+msgstr "déjà dans le diaporama"
+
+msgid "unreadable"
+msgstr "illisible"
+
+msgid "{here} of {shown} in this folder"
+msgstr "{here} sur {shown} dans ce dossier"
+
+msgid "Add {n} photos"
+msgstr "Ajouter {n} photos"
+
+msgid "{n} photos ticked in other folders are kept."
+msgstr "{n} photos cochées dans d'autres dossiers sont conservées."
+
+msgid "Producing the slideshow"
+msgstr "Production du diaporama"
+
+msgid "Starting…"
+msgstr "Démarrage…"
+
+msgid "Open the folder"
+msgstr "Ouvrir le dossier"
+
+msgid "{done} of {total}"
+msgstr "{done} sur {total}"
+
+msgid "Close"
+msgstr "Fermer"
+
+msgid "Finished"
+msgstr "Terminé"
+
+msgid "Written to: {path}"
+msgstr "Écrit dans : {path}"
+
+msgid "Stopped"
+msgstr "Interrompu"
+
+msgid "Nothing more was written."
+msgstr "Rien de plus n'a été écrit."
+
+msgid "Failed"
+msgstr "Échec"
+
+msgid "See the detail below."
+msgstr "Voir le détail ci-dessous."
+
+msgid "Stop the production now?"
+msgstr "Interrompre la production maintenant ?"
+
+msgid "Stop"
+msgstr "Interrompre"
+
+msgid "Keep going"
+msgstr "Poursuivre"
+
+msgid "Stopping…"
+msgstr "Interruption…"
+
+msgid "Format:"
+msgstr "Format :"
+
+msgid "Seconds per photo:"
+msgstr "Secondes par photo :"
+
+msgid "Cross-fade:"
+msgstr "Fondu enchaîné :"
+
+msgid "Fade from and to black:"
+msgstr "Fondus au noir :"
+
+msgid "Music"
+msgstr "Musique"
+
+msgid "Add files…"
+msgstr "Ajouter des fichiers…"
+
+msgid "Add a folder…"
+msgstr "Ajouter un dossier…"
+
+msgid "Remove"
+msgstr "Retirer"
+
+msgid "Where the results are written"
+msgstr "Où les résultats sont écrits"
+
+msgid "Images:"
+msgstr "Images :"
+
+msgid "Automatic"
+msgstr "Automatique"
+
+msgid "Video:"
+msgstr "Vidéo :"
+
+msgid "Add a music folder"
+msgstr "Ajouter un dossier de musique"
+
+msgid "(missing)"
+msgstr "(manquant)"
+
+msgid "No music: the video will be silent."
+msgstr "Aucune musique : la vidéo sera muette."
+
+msgid "{n} pieces, played in this order then looped."
+msgstr "{n} pièces, jouées dans cet ordre puis bouclées."
+
+msgid "Folder for the laid-out images"
+msgstr "Dossier des images mises en page"
+
+msgid "Where to write the video"
+msgstr "Où écrire la vidéo"
+
+msgid "Video"
+msgstr "Vidéo"
+
+msgid "  (automatic)"
+msgstr "  (automatique)"
+
+msgid "No photo in the slideshow yet."
+msgstr "Aucune photo dans le diaporama pour l'instant."
+
+msgid "{n} photos — {duration} of video"
+msgstr "{n} photos — {duration} de vidéo"
+
