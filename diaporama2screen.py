@@ -6,7 +6,7 @@ image, ready to play on a television.
 Entry point. Keeps nothing of its own: it checks that a graphical display is
 reachable, opens the window, and gets out of the way.
 """
-__version__ = "1.1.0"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.2.0"   # version propre à CE fichier ; incrémentée quand il change
 
 import os
 import sys
@@ -29,10 +29,32 @@ def _set_window_icon(app, here):
                 continue
 
 
+USAGE = """Usage: diaporama2screen.py [OPTION]
+
+Build a photo slideshow with the caption burnt into the image, ready to play
+on a television. Without an option, the window opens.
+
+  -V, --version   print the version and exit
+  -h, --help      print this help and exit
+"""
+
+
 def main():
     here = os.path.dirname(os.path.abspath(__file__))
     if here not in sys.path:
         sys.path.insert(0, here)
+
+    # Answered before anything graphical is touched, so that a version can be
+    # read on a machine with no display — which is where a bug report is
+    # usually being written.
+    argument = sys.argv[1] if len(sys.argv) > 1 else ""
+    if argument in ("-V", "--version"):
+        import paths
+        sys.stdout.write("{} {}\n".format(paths.APP_NAME, paths.APP_VERSION))
+        return 0
+    if argument in ("-h", "--help"):
+        sys.stdout.write(USAGE)
+        return 0
 
     try:
         import tkinter  # noqa: F401

@@ -17,6 +17,11 @@ cd "$(dirname "$0")" || exit 1
 DOMAINE="diaporama2screen"
 LANGUES="fr"
 
+# Lue dans paths.py plutôt que recopiée ici : un numéro écrit à deux
+# endroits finit toujours par différer.
+VERSION=$(python3 -c 'import paths; print(paths.APP_VERSION)' 2>/dev/null)
+VERSION=${VERSION:-0.0.0}
+
 for outil in xgettext msgfmt python3; do
   if ! command -v "$outil" >/dev/null; then
     echo "Outil absent : $outil"
@@ -29,7 +34,7 @@ mkdir -p locale
 
 echo "--- extraction des chaines ---"
 xgettext --language=Python --keyword=_ --keyword=N_ --from-code=UTF-8 \
-  --package-name="$DOMAINE" --package-version=1.0 \
+  --package-name="$DOMAINE" --package-version="$VERSION" \
   --msgid-bugs-address=jean \
   --output="locale/$DOMAINE.pot" ./*.py || exit 1
 echo "chaines extraites : $(grep -c '^msgid ' "locale/$DOMAINE.pot")"

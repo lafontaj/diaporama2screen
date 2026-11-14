@@ -384,6 +384,14 @@ messages de ffmpeg et d'ImageMagick s'y affichent en entier.
 **digiKam montre encore l'ancienne légende** — lui faire relire les
 métadonnées de l'album, comme expliqué plus haut.
 
+**Signaler un défaut** — donner le numéro de version, sans quoi le rapport
+est difficile à situer. Il s'affiche dans **Aide ▸ À propos**, et en ligne
+de commande :
+
+```bash
+python3 diaporama2screen.py --version
+```
+
 ---
 
 ## Changer de langue

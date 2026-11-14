@@ -7,7 +7,7 @@ The list on the left is BOTH the selection and the order of the slideshow:
 keeping two separate lists would mean keeping them in step, which is exactly
 the kind of bookkeeping that goes wrong.
 """
-__version__ = "1.3.1"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.3.2"   # version propre à CE fichier ; incrémentée quand il change
 
 import os
 import tkinter as tk
@@ -750,7 +750,10 @@ class App(tk.Tk):
             ui_dialogs.info(self, _("No launcher was installed."))
 
     def on_about(self):
+        # The version rides in through {app} on purpose: the sentence itself
+        # is unchanged, so the translation catalogues stay valid.
         ui_dialogs.info(
             self,
             _("{app}\n\nBuild a photo slideshow with captions burnt into the "
-              "image, ready to play on a television.").format(app=APP_TITLE))
+              "image, ready to play on a television.").format(
+                  app="{} {}".format(APP_TITLE, paths.APP_VERSION)))

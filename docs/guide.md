@@ -368,6 +368,13 @@ ImageMagick's own messages appear there in full.
 **digiKam still shows the old caption** — have it read the album's metadata
 again, as explained above.
 
+**Reporting a fault** — quote the version number, without which the report
+is hard to place. It appears in **Help ▸ About**, and on the command line:
+
+```bash
+python3 diaporama2screen.py --version
+```
+
 ---
 
 ## Changing the language

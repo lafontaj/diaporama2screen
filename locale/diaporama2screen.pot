@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: diaporama2screen 1.0\n"
+"Project-Id-Version: diaporama2screen 1.0.0\n"
 "Report-Msgid-Bugs-To: jean\n"
-"POT-Creation-Date: 2026-11-14 15:27-0500\n"
+"POT-Creation-Date: 2026-11-14 17:18-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -88,251 +88,251 @@ msgstr ""
 msgid "No image could be produced."
 msgstr ""
 
-#: ui_dialogs.py:80 ui_picker.py:166
+#: ui_dialogs.py:204 ui_picker.py:166
 msgid "Choose a folder"
 msgstr ""
 
-#: ui_dialogs.py:90
+#: ui_dialogs.py:216
 msgid "Add photos"
 msgstr ""
 
-#: ui_dialogs.py:94 ui_dialogs.py:99
+#: ui_dialogs.py:221 ui_dialogs.py:226
 msgid "Images"
 msgstr ""
 
-#: ui_dialogs.py:95 ui_dialogs.py:99 ui_dialogs.py:110 ui_dialogs.py:114
-#: ui_dialogs.py:128 ui_dialogs.py:131 ui_dialogs.py:151 ui_dialogs.py:163
+#: ui_dialogs.py:222 ui_dialogs.py:226 ui_dialogs.py:238 ui_dialogs.py:242
+#: ui_dialogs.py:256 ui_dialogs.py:259 ui_dialogs.py:279 ui_dialogs.py:291
 msgid "All files"
 msgstr ""
 
-#: ui_dialogs.py:105 ui_settings.py:156
+#: ui_dialogs.py:232 ui_settings.py:156
 msgid "Add music files"
 msgstr ""
 
-#: ui_dialogs.py:109 ui_dialogs.py:114
+#: ui_dialogs.py:237 ui_dialogs.py:242
 msgid "Audio files"
 msgstr ""
 
-#: ui_dialogs.py:121
+#: ui_dialogs.py:249
 msgid "Open"
 msgstr ""
 
-#: ui_dialogs.py:142
+#: ui_dialogs.py:270
 msgid "Save as"
 msgstr ""
 
-#: ui_dialogs.py:157
+#: ui_dialogs.py:285
 #, python-brace-format
 msgid "The file “{f}” already exists. Replace it?"
 msgstr ""
 
-#: ui_dialogs.py:159 ui_main.py:564
+#: ui_dialogs.py:287 ui_main.py:579
 msgid "Replace"
 msgstr ""
 
-#: ui_dialogs.py:212
+#: ui_dialogs.py:343
 msgid "OK"
 msgstr ""
 
-#: ui_dialogs.py:269 ui_dialogs.py:295
+#: ui_dialogs.py:403 ui_dialogs.py:429
 msgid "Yes"
 msgstr ""
 
-#: ui_dialogs.py:270 ui_dialogs.py:295 ui_dialogs.py:348 ui_picker.py:120
+#: ui_dialogs.py:404 ui_dialogs.py:429 ui_dialogs.py:486 ui_picker.py:120
 #: ui_render.py:71
 msgid "Cancel"
 msgstr ""
 
-#: ui_dialogs.py:347 ui_main.py:75
+#: ui_dialogs.py:485 ui_main.py:89
 msgid "Save"
 msgstr ""
 
-#: ui_dialogs.py:347
+#: ui_dialogs.py:485
 msgid "Discard"
 msgstr ""
 
-#: ui_main.py:70
+#: ui_main.py:84
 msgid "New project"
 msgstr ""
 
-#: ui_main.py:72
+#: ui_main.py:86
 msgid "Open…"
 msgstr ""
 
-#: ui_main.py:77
+#: ui_main.py:91
 msgid "Save as…"
 msgstr ""
 
-#: ui_main.py:79
+#: ui_main.py:94
 msgid "Quit"
 msgstr ""
 
-#: ui_main.py:80 ui_main.py:144
+#: ui_main.py:95 ui_main.py:159
 msgid "File"
 msgstr ""
 
-#: ui_main.py:84
+#: ui_main.py:99
 msgid "System language"
 msgstr ""
 
-#: ui_main.py:90
+#: ui_main.py:105
 msgid "Language"
 msgstr ""
 
-#: ui_main.py:93
+#: ui_main.py:108
 msgid "Install a launcher…"
 msgstr ""
 
-#: ui_main.py:95
+#: ui_main.py:110
 msgid "Remove the launcher"
 msgstr ""
 
-#: ui_main.py:98
+#: ui_main.py:113
 msgid "Required programs"
 msgstr ""
 
-#: ui_main.py:100
+#: ui_main.py:115
 msgid "Tools"
 msgstr ""
 
-#: ui_main.py:103
+#: ui_main.py:118
 msgid "About"
 msgstr ""
 
-#: ui_main.py:104
+#: ui_main.py:119
 msgid "Help"
 msgstr ""
 
-#: ui_main.py:111
+#: ui_main.py:126
 msgid "Add photos…"
 msgstr ""
 
-#: ui_main.py:113
+#: ui_main.py:128
 msgid "Remove from the slideshow"
 msgstr ""
 
-#: ui_main.py:115
+#: ui_main.py:130
 msgid "Re-read the captions"
 msgstr ""
 
-#: ui_main.py:118
+#: ui_main.py:133
 msgid "Write captions into the files…"
 msgstr ""
 
-#: ui_main.py:145 ui_main.py:196
+#: ui_main.py:160 ui_main.py:211
 msgid "Caption"
 msgstr ""
 
-#: ui_main.py:161
+#: ui_main.py:176
 msgid "Top"
 msgstr ""
 
-#: ui_main.py:163 ui_settings.py:97
+#: ui_main.py:178 ui_settings.py:97
 msgid "Up"
 msgstr ""
 
-#: ui_main.py:166 ui_settings.py:100
+#: ui_main.py:181 ui_settings.py:100
 msgid "Down"
 msgstr ""
 
-#: ui_main.py:169
+#: ui_main.py:184
 msgid "Bottom"
 msgstr ""
 
-#: ui_main.py:172
+#: ui_main.py:187
 msgid "Sort by name"
 msgstr ""
 
-#: ui_main.py:174
+#: ui_main.py:189
 msgid "Sort by date"
 msgstr ""
 
-#: ui_main.py:190 ui_main.py:304
+#: ui_main.py:205 ui_main.py:319
 msgid "Select a photo to see it here."
 msgstr ""
 
-#: ui_main.py:207
+#: ui_main.py:222
 msgid "Restore the file's caption"
 msgstr ""
 
-#: ui_main.py:211
+#: ui_main.py:226
 msgid "Write into the file"
 msgstr ""
 
-#: ui_main.py:240
+#: ui_main.py:255
 msgid "file not found"
 msgstr ""
 
-#: ui_main.py:264
+#: ui_main.py:279
 msgid "Empty slideshow. Add a folder or some photos to begin."
 msgstr ""
 
-#: ui_main.py:267
+#: ui_main.py:282
 #, python-brace-format
 msgid "{n} photos"
 msgstr ""
 
-#: ui_main.py:268
+#: ui_main.py:283
 #, python-brace-format
 msgid "{n} with a caption"
 msgstr ""
 
-#: ui_main.py:270
+#: ui_main.py:285
 #, python-brace-format
 msgid "{n} edited here only"
 msgstr ""
 
-#: ui_main.py:272
+#: ui_main.py:287
 #, python-brace-format
 msgid "{n} missing files"
 msgstr ""
 
-#: ui_main.py:273
+#: ui_main.py:288
 #, python-brace-format
 msgid "duration {d}"
 msgstr ""
 
-#: ui_main.py:310
+#: ui_main.py:325
 msgid "This file no longer exists."
 msgstr ""
 
-#: ui_main.py:320
+#: ui_main.py:335
 #, python-brace-format
 msgid ""
 "This photo cannot be displayed:\n"
 "{reason}"
 msgstr ""
 
-#: ui_main.py:325
+#: ui_main.py:340
 msgid "no date"
 msgstr ""
 
-#: ui_main.py:344
+#: ui_main.py:359
 #, python-brace-format
 msgid "Edited here only. In the file: {text}"
 msgstr ""
 
-#: ui_main.py:345
+#: ui_main.py:360
 msgid "(none)"
 msgstr ""
 
-#: ui_main.py:347
+#: ui_main.py:362
 msgid "Read from the file."
 msgstr ""
 
-#: ui_main.py:350
+#: ui_main.py:365
 msgid "This photo has no caption in its metadata."
 msgstr ""
 
-#: ui_main.py:394
+#: ui_main.py:409
 msgid "This caption is already the one in the file. There is nothing to write."
 msgstr ""
 
-#: ui_main.py:402
+#: ui_main.py:417
 msgid "No caption has been edited here, so there is nothing to write."
 msgstr ""
 
-#: ui_main.py:412
+#: ui_main.py:427
 #, python-brace-format
 msgid ""
 "Write this caption into the photograph itself?\n"
@@ -341,73 +341,73 @@ msgid ""
 "{caption}"
 msgstr ""
 
-#: ui_main.py:414
+#: ui_main.py:429
 msgid "(empty)"
 msgstr ""
 
-#: ui_main.py:416
+#: ui_main.py:431
 #, python-brace-format
 msgid "Write {n} captions into the photographs themselves?"
 msgstr ""
 
-#: ui_main.py:418
+#: ui_main.py:433
 msgid ""
 "The files are modified. digiKam will show the new captions once it re-reads "
 "them."
 msgstr ""
 
-#: ui_main.py:423
+#: ui_main.py:438
 msgid "Keep a copy of each original file (name_original)"
 msgstr ""
 
-#: ui_main.py:425
+#: ui_main.py:440
 msgid "Write into the files"
 msgstr ""
 
-#: ui_main.py:426
+#: ui_main.py:441
 msgid "Write"
 msgstr ""
 
-#: ui_main.py:453
+#: ui_main.py:468
 #, python-brace-format
 msgid ""
 "{ok} captions written, {bad} failed:\n"
 "{detail}"
 msgstr ""
 
-#: ui_main.py:457
+#: ui_main.py:472
 #, python-brace-format
 msgid "{n} captions written into the files."
 msgstr ""
 
-#: ui_main.py:476 ui_picker.py:65
+#: ui_main.py:491 ui_picker.py:65
 msgid "Choose the photos to add"
 msgstr ""
 
-#: ui_main.py:494
+#: ui_main.py:509
 msgid ""
 "Nothing added: those photos are already in the slideshow, or are not images."
 msgstr ""
 
-#: ui_main.py:547
+#: ui_main.py:562
 msgid "None of these photos can be read."
 msgstr ""
 
-#: ui_main.py:553
+#: ui_main.py:568
 #, python-brace-format
 msgid "{n} files are missing and will be left out. Continue?"
 msgstr ""
 
-#: ui_main.py:555
+#: ui_main.py:570
 msgid "Continue"
 msgstr ""
 
-#: ui_main.py:562
+#: ui_main.py:577
 #, python-brace-format
 msgid "“{f}” already exists. Replace it?"
 msgstr ""
 
-#: ui_main.py:570
+#: ui_main.py:585
 #, python-brace-format
 msgid ""
 "The laid-out images go to:\n"
@@ -419,99 +419,99 @@ msgid ""
 "Numbered images already in that folder are replaced."
 msgstr ""
 
-#: ui_main.py:574
+#: ui_main.py:589
 msgid "Produce"
 msgstr ""
 
-#: ui_main.py:574 ui_settings.py:139
+#: ui_main.py:589 ui_settings.py:139
 msgid "Produce the video"
 msgstr ""
 
-#: ui_main.py:586
+#: ui_main.py:601
 msgid "untitled"
 msgstr ""
 
-#: ui_main.py:598
+#: ui_main.py:613
 msgid "This project has unsaved changes. Save it now?"
 msgstr ""
 
-#: ui_main.py:622
+#: ui_main.py:637
 msgid "Open a project"
 msgstr ""
 
-#: ui_main.py:625 ui_main.py:662
+#: ui_main.py:640 ui_main.py:677
 msgid "Slideshow projects"
 msgstr ""
 
-#: ui_main.py:635
+#: ui_main.py:650
 #, python-brace-format
 msgid ""
 "This project could not be opened:\n"
 "{reason}"
 msgstr ""
 
-#: ui_main.py:656
+#: ui_main.py:671
 msgid "Save the project"
 msgstr ""
 
-#: ui_main.py:658
+#: ui_main.py:673
 msgid "slideshow"
 msgstr ""
 
-#: ui_main.py:673
+#: ui_main.py:688
 #, python-brace-format
 msgid ""
 "This project could not be saved:\n"
 "{reason}"
 msgstr ""
 
-#: ui_main.py:692
+#: ui_main.py:707
 msgid "The language will change the next time the application starts."
 msgstr ""
 
-#: ui_main.py:703
+#: ui_main.py:718
 msgid "Every required program is installed."
 msgstr ""
 
-#: ui_main.py:707
+#: ui_main.py:722
 msgid ""
 "Put diaporama2screen in the Graphics group of the menu, and a launcher on "
 "the desktop?"
 msgstr ""
 
-#: ui_main.py:710
+#: ui_main.py:725
 msgid "An existing launcher will be replaced."
 msgstr ""
 
-#: ui_main.py:712
+#: ui_main.py:727
 msgid "Also put a launcher on the desktop"
 msgstr ""
 
-#: ui_main.py:713
+#: ui_main.py:728
 msgid "Install a launcher"
 msgstr ""
 
-#: ui_main.py:714
+#: ui_main.py:729
 msgid "Install"
 msgstr ""
 
-#: ui_main.py:722
+#: ui_main.py:737
 msgid "Launcher installed:"
 msgstr ""
 
-#: ui_main.py:726
+#: ui_main.py:741
 msgid "The menu may take a moment to notice it."
 msgstr ""
 
-#: ui_main.py:732
+#: ui_main.py:747
 msgid "Launcher removed:"
 msgstr ""
 
-#: ui_main.py:735
+#: ui_main.py:750
 msgid "No launcher was installed."
 msgstr ""
 
-#: ui_main.py:740
+#: ui_main.py:757
 #, python-brace-format
 msgid ""
 "{app}\n"
