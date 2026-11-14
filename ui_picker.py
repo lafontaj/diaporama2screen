@@ -16,7 +16,7 @@ Thumbnails are decoded a few at a time on the Tk event loop rather than all at
 once: the grid appears immediately and fills in, instead of freezing for the
 time it takes to read a hundred scans.
 """
-__version__ = "2.1.1"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "2.2.0"   # version propre à CE fichier ; incrémentée quand il change
 
 import os
 import tkinter as tk
@@ -27,10 +27,13 @@ import project as project_mod
 import ui_dialogs
 
 try:
-    from i18n import _
+    from i18n import _, ngettext
 except ImportError:
     def _(s):
         return s
+
+    def ngettext(singular, plural, n):
+        return singular if n == 1 else plural
 
 THUMB_W = 170
 THUMB_H = 128
@@ -367,11 +370,15 @@ class PhotoPicker(tk.Toplevel):
             text=_("{here} of {shown} in this folder").format(
                 here=here, shown=len(self._paths)))
         self.btn_add.configure(
-            text=_("Add {n} photos").format(n=total) if total else _("Add"))
+            text=ngettext("Add {n} photo", "Add {n} photos",
+                          total).format(n=total) if total else _("Add"))
         if total > here:
+            elsewhere = total - here
             self.lbl_hint.configure(
-                text=_("{n} photos ticked in other folders are kept.").format(
-                    n=total - here))
+                text=ngettext(
+                    "{n} photo ticked in another folder is kept.",
+                    "{n} photos ticked in other folders are kept.",
+                    elsewhere).format(n=elsewhere))
         else:
             self.lbl_hint.configure(text="")
 

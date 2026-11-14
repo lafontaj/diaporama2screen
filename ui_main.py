@@ -7,7 +7,7 @@ The list on the left is BOTH the selection and the order of the slideshow:
 keeping two separate lists would mean keeping them in step, which is exactly
 the kind of bookkeeping that goes wrong.
 """
-__version__ = "1.3.2"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.4.0"   # version propre à CE fichier ; incrémentée quand il change
 
 import os
 import tkinter as tk
@@ -26,10 +26,13 @@ import ui_render
 from ui_settings import SettingsPanel, format_duration
 
 try:
-    from i18n import _
+    from i18n import _, ngettext
 except ImportError:
     def _(s):
         return s
+
+    def ngettext(singular, plural, n):
+        return singular if n == 1 else plural
 
 APP_TITLE = "diaporama2screen"
 
@@ -279,12 +282,16 @@ class App(tk.Tk):
             self.status.configure(text=_("Empty slideshow. Add a folder or "
                                          "some photos to begin."))
             return
-        bits = [_("{n} photos").format(n=total),
-                _("{n} with a caption").format(n=captioned)]
+        bits = [ngettext("{n} photo", "{n} photos", total).format(n=total),
+                ngettext("{n} with a caption", "{n} with captions",
+                         captioned).format(n=captioned)]
         if overridden:
-            bits.append(_("{n} edited here only").format(n=overridden))
+            bits.append(ngettext("{n} edited here only",
+                                 "{n} edited here only",
+                                 overridden).format(n=overridden))
         if gone:
-            bits.append(_("{n} missing files").format(n=gone))
+            bits.append(ngettext("{n} missing file", "{n} missing files",
+                                 gone).format(n=gone))
         bits.append(_("duration {d}").format(
             d=format_duration(self.proj.duration())))
         self.status.configure(text="   ·   ".join(bits))
@@ -428,8 +435,10 @@ class App(tk.Tk):
                          "{name}\n{caption}").format(
                 name=photos[0].name, caption=photos[0].caption or _("(empty)"))
         else:
-            question = _("Write {n} captions into the photographs "
-                         "themselves?").format(n=len(photos))
+            question = ngettext(
+                "Write {n} caption into the photograph itself?",
+                "Write {n} captions into the photographs themselves?",
+                len(photos)).format(n=len(photos))
         question += "\n\n" + _("The files are modified. digiKam will show the "
                                "new captions once it re-reads them.")
 
@@ -469,8 +478,9 @@ class App(tk.Tk):
                     ok=written, bad=len(failures), detail=detail))
         else:
             ui_dialogs.success(
-                self, _("{n} captions written into the files.").format(
-                    n=written))
+                self, ngettext("{n} caption written into the file.",
+                               "{n} captions written into the files.",
+                               written).format(n=written))
 
     # ------------------------------------------------------------------
     # adding, removing, ordering
@@ -565,8 +575,10 @@ class App(tk.Tk):
         if gone:
             if not ui_dialogs.confirm(
                     self,
-                    _("{n} files are missing and will be left out. "
-                      "Continue?").format(n=gone),
+                    ngettext(
+                        "{n} file is missing and will be left out. Continue?",
+                        "{n} files are missing and will be left out. "
+                        "Continue?", gone).format(n=gone),
                     ok_text=_("Continue")):
                 return
 

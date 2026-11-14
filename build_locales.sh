@@ -33,7 +33,8 @@ done
 mkdir -p locale
 
 echo "--- extraction des chaines ---"
-xgettext --language=Python --keyword=_ --keyword=N_ --from-code=UTF-8 \
+xgettext --language=Python --keyword=_ --keyword=N_ \
+  --keyword=ngettext:1,2 --from-code=UTF-8 \
   --package-name="$DOMAINE" --package-version="$VERSION" \
   --msgid-bugs-address=jean \
   --output="locale/$DOMAINE.pot" ./*.py || exit 1

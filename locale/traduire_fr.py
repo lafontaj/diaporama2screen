@@ -10,7 +10,7 @@ rien ne casse.
 Les msgid sur plusieurs lignes sont recollés avant la recherche, de sorte que
 la table ci-dessous se lit comme du texte ordinaire.
 """
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 import os
 import re
@@ -46,7 +46,8 @@ FR = {
     "Laying out the images": "Mise en page des images",
     "Caption unusable for {name}": "Légende inutilisable pour {name}",
     "Could not read {name}": "Lecture impossible : {name}",
-    "Joining {n} pieces of music": "Assemblage de {n} pièces musicales",
+    "Joining {n} piece of music": ("Assemblage de {n} pièce musicale",
+                                  "Assemblage de {n} pièces musicales"),
     "The music could not be joined; the video will be silent.":
         "La musique n'a pas pu être assemblée ; la vidéo sera muette.",
     "Encoding the video": "Encodage de la vidéo",
@@ -105,10 +106,11 @@ FR = {
     "file not found": "fichier introuvable",
     "Empty slideshow. Add a folder or some photos to begin.":
         "Diaporama vide. Ajoutez un dossier ou des photos pour commencer.",
-    "{n} photos": "{n} photos",
-    "{n} with a caption": "{n} avec légende",
-    "{n} edited here only": "{n} modifiées ici seulement",
-    "{n} missing files": "{n} fichiers manquants",
+    "{n} photo": ("{n} photo", "{n} photos"),
+    "{n} with a caption": ("{n} avec légende", "{n} avec légende"),
+    "{n} edited here only": ("{n} modifiée ici seulement",
+                            "{n} modifiées ici seulement"),
+    "{n} missing file": ("{n} fichier manquant", "{n} fichiers manquants"),
     "duration {d}": "durée {d}",
     "This file no longer exists.": "Ce fichier n'existe plus.",
     "This photo cannot be displayed:\n{reason}":
@@ -128,8 +130,9 @@ FR = {
         "Écrire cette légende dans la photographie elle-même ?"
         "\n\n{name}\n{caption}",
     "(empty)": "(vide)",
-    "Write {n} captions into the photographs themselves?":
-        "Écrire {n} légendes dans les photographies elles-mêmes ?",
+    "Write {n} caption into the photograph itself?":
+        ("Écrire {n} légende dans la photographie elle-même ?",
+         "Écrire {n} légendes dans les photographies elles-mêmes ?"),
     "The files are modified. digiKam will show the new captions once it "
     "re-reads them.":
         "Les fichiers sont modifiés. digiKam affichera les nouvelles légendes "
@@ -140,8 +143,9 @@ FR = {
     "Write": "Écrire",
     "{ok} captions written, {bad} failed:\n{detail}":
         "{ok} légendes écrites, {bad} en échec :\n{detail}",
-    "{n} captions written into the files.":
-        "{n} légendes écrites dans les fichiers.",
+    "{n} caption written into the file.":
+        ("{n} légende écrite dans le fichier.",
+         "{n} légendes écrites dans les fichiers."),
     "Choose the photos to add": "Choisir les photos à ajouter",
     "Nothing added: those photos are already in the slideshow, or are not "
     "images.":
@@ -149,8 +153,9 @@ FR = {
         "pas des images.",
     "None of these photos can be read.":
         "Aucune de ces photos n'est lisible.",
-    "{n} files are missing and will be left out. Continue?":
-        "{n} fichiers sont manquants et seront laissés de côté. Continuer ?",
+    "{n} file is missing and will be left out. Continue?":
+        ("{n} fichier est manquant et sera laissé de côté. Continuer ?",
+         "{n} fichiers sont manquants et seront laissés de côté. Continuer ?"),
     "Continue": "Continuer",
     "“{f}” already exists. Replace it?":
         "« {f} » existe déjà. Le remplacer ?",
@@ -210,9 +215,10 @@ FR = {
     "unreadable": "illisible",
     "{here} of {shown} in this folder":
         "{here} sur {shown} dans ce dossier",
-    "Add {n} photos": "Ajouter {n} photos",
-    "{n} photos ticked in other folders are kept.":
-        "{n} photos cochées dans d'autres dossiers sont conservées.",
+    "Add {n} photo": ("Ajouter {n} photo", "Ajouter {n} photos"),
+    "{n} photo ticked in another folder is kept.":
+        ("{n} photo cochée dans un autre dossier est conservée.",
+         "{n} photos cochées dans d'autres dossiers sont conservées."),
 
     # ui_render.py
     "Producing the slideshow": "Production du diaporama",
@@ -248,16 +254,18 @@ FR = {
     "(missing)": "(manquant)",
     "No music: the video will be silent.":
         "Aucune musique : la vidéo sera muette.",
-    "{n} pieces, played in this order then looped.":
-        "{n} pièces, jouées dans cet ordre puis bouclées.",
+    "{n} piece, played then looped.":
+        ("{n} pièce, jouée puis bouclée.",
+         "{n} pièces, jouées dans cet ordre puis bouclées."),
     "Folder for the laid-out images": "Dossier des images mises en page",
     "Where to write the video": "Où écrire la vidéo",
     "Video": "Vidéo",
     "  (automatic)": "  (automatique)",
     "No photo in the slideshow yet.":
         "Aucune photo dans le diaporama pour l'instant.",
-    "{n} photos — {duration} of video":
-        "{n} photos — {duration} de vidéo",
+    "{n} photo — {duration} of video":
+        ("{n} photo — {duration} de vidéo",
+         "{n} photos — {duration} de vidéo"),
 }
 
 EN_TETE = '''# Catalogue français de diaporama2screen.
@@ -286,45 +294,90 @@ def desechapper(texte):
             .replace('\\"', '"').replace("\\\\", "\\"))
 
 
-def lire_msgids(chemin):
-    """Les msgid du modèle, recollés quand ils tiennent sur plusieurs lignes,
-    dans l'ordre du fichier."""
+def lire_entrees(chemin):
+    """Les entrées du modèle, dans l'ordre du fichier.
+
+    Une chaîne ordinaire donne `(msgid,)` ; une chaîne comptée, que xgettext
+    écrit avec un `msgid_plural`, donne `(msgid, msgid_plural)`. Les textes
+    tenant sur plusieurs lignes sont recollés, de sorte que la table se lise
+    comme du texte ordinaire."""
     with open(chemin, "r", encoding="utf-8") as f:
         lignes = f.read().splitlines()
-    msgids = []
-    courant = None
+
+    entrees = []
+    courant = {}
+    etat = {"champ": None, "morceaux": []}
+
+    def finir_champ():
+        if etat["champ"] is not None:
+            courant[etat["champ"]] = desechapper("".join(etat["morceaux"]))
+            etat["champ"] = None
+
+    def finir_entree():
+        finir_champ()
+        msgid = courant.get("msgid", "")
+        if msgid:
+            if "msgid_plural" in courant:
+                entrees.append((msgid, courant["msgid_plural"]))
+            else:
+                entrees.append((msgid,))
+        courant.clear()
+
     for ligne in lignes:
         if ligne.startswith("msgid "):
-            courant = [re.findall(r'"(.*)"', ligne)[0]]
-        elif courant is not None and ligne.startswith('"'):
-            courant.append(re.findall(r'"(.*)"', ligne)[0])
-        elif courant is not None:
-            msgids.append(desechapper("".join(courant)))
-            courant = None
-    if courant is not None:
-        msgids.append(desechapper("".join(courant)))
-    return [m for m in msgids if m]
+            finir_entree()
+            etat["champ"] = "msgid"
+            etat["morceaux"] = [re.findall(r'"(.*)"', ligne)[0]]
+        elif ligne.startswith("msgid_plural "):
+            finir_champ()
+            etat["champ"] = "msgid_plural"
+            etat["morceaux"] = [re.findall(r'"(.*)"', ligne)[0]]
+        elif ligne.startswith("msgstr"):
+            finir_champ()
+        elif etat["champ"] is not None and ligne.startswith('"'):
+            etat["morceaux"].append(re.findall(r'"(.*)"', ligne)[0])
+        elif not ligne.strip():
+            finir_entree()
+    finir_entree()
+    return entrees
 
 
 def main():
     if not os.path.isfile(POT):
         print("Modèle absent :", POT)
         return 1
-    msgids = lire_msgids(POT)
+    entrees = lire_entrees(POT)
     os.makedirs(os.path.dirname(PO), exist_ok=True)
 
     manquantes = []
     with open(PO, "w", encoding="utf-8") as f:
         f.write(EN_TETE)
-        for msgid in msgids:
+        for entree in entrees:
+            msgid = entree[0]
             traduction = FR.get(msgid, "")
-            if not traduction:
-                manquantes.append(msgid)
-            f.write('msgid "{}"\n'.format(echapper(msgid)))
-            f.write('msgstr "{}"\n\n'.format(echapper(traduction)))
+            if len(entree) == 1:
+                if not traduction:
+                    manquantes.append(msgid)
+                f.write('msgid "{}"\n'.format(echapper(msgid)))
+                f.write('msgstr "{}"\n\n'.format(echapper(traduction)))
+                continue
 
-    print("chaînes du modèle :", len(msgids))
-    print("traduites         :", len(msgids) - len(manquantes))
+            # Chaîne comptée : il faut les deux formes françaises, sans quoi
+            # gettext retombe sur l'anglais pour celle qui manque — et une
+            # phrase à moitié traduite se remarque plus qu'une non traduite.
+            formes = traduction if isinstance(traduction, tuple) else ()
+            if len(formes) != 2 or not all(formes):
+                manquantes.append(msgid)
+                formes = ("", "")
+            f.write('msgid "{}"\n'.format(echapper(msgid)))
+            f.write('msgid_plural "{}"\n'.format(echapper(entree[1])))
+            f.write('msgstr[0] "{}"\n'.format(echapper(formes[0])))
+            f.write('msgstr[1] "{}"\n\n'.format(echapper(formes[1])))
+
+    msgids = [e[0] for e in entrees]
+    print("chaînes du modèle :", len(entrees))
+    print("traduites         :", len(entrees) - len(manquantes))
+    print("dont comptées     :", sum(1 for e in entrees if len(e) == 2))
     print("écrit             :", PO)
     if manquantes:
         print("\nSANS TRADUCTION :")

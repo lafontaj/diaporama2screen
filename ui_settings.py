@@ -5,7 +5,7 @@ ui_settings.py — The production panel: format, timings and music.
 Kept apart from the main window so that neither file becomes the kind of
 monolith that is slow to read and slow to load.
 """
-__version__ = "1.1.0"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.2.0"   # version propre à CE fichier ; incrémentée quand il change
 
 import os
 import tkinter as tk
@@ -16,10 +16,13 @@ import project as project_mod
 import ui_dialogs
 
 try:
-    from i18n import _
+    from i18n import _, ngettext
 except ImportError:
     def _(s):
         return s
+
+    def ngettext(singular, plural, n):
+        return singular if n == 1 else plural
 
 MUSIC_EXTENSIONS = (".flac", ".mp3", ".m4a", ".ogg", ".opus", ".wav")
 
@@ -231,7 +234,10 @@ class SettingsPanel(ttk.Frame):
             self.lbl_music.configure(text=_("No music: the video will be silent."))
         else:
             self.lbl_music.configure(
-                text=_("{n} pieces, played in this order then looped.").format(
+                text=ngettext(
+                    "{n} piece, played then looped.",
+                    "{n} pieces, played in this order then looped.",
+                    len(files)).format(
                     n=len(files)))
 
     # ---------- where the results go ----------
@@ -325,5 +331,6 @@ class SettingsPanel(ttk.Frame):
             return
         self.btn_produce.configure(state="normal")
         self.lbl_estimate.configure(
-            text=_("{n} photos — {duration} of video").format(
+            text=ngettext("{n} photo — {duration} of video",
+                          "{n} photos — {duration} of video", count).format(
                 n=count, duration=format_duration(self.app.proj.duration())))

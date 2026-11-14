@@ -23,7 +23,7 @@ as they were because they are known to work:
     French locale writes 4,000 and a comma separates arguments in an FFmpeg
     filter.
 """
-__version__ = "1.0.0"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.1.0"   # version propre à CE fichier ; incrémentée quand il change
 
 import os
 import re
@@ -33,10 +33,13 @@ import tempfile
 import threading
 
 try:
-    from i18n import _
+    from i18n import _, ngettext
 except ImportError:
     def _(s):
         return s
+
+    def ngettext(singular, plural, n):
+        return singular if n == 1 else plural
 
 FONT_CANDIDATES = (
     "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
@@ -257,7 +260,9 @@ class Renderer:
             return None
         if len(files) == 1:
             return files[0]
-        self.report("step", _("Joining {n} pieces of music").format(
+        self.report("step", ngettext("Joining {n} piece of music",
+                                     "Joining {n} pieces of music",
+                                     len(files)).format(
             n=len(files)))
         args = ["ffmpeg", "-hide_banner", "-loglevel", "error", "-y"]
         parts = []

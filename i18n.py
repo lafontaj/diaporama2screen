@@ -20,7 +20,7 @@ Compiled catalogs are expected under:
     <project dir>/locale/<lang>/LC_MESSAGES/diaporama2screen.mo
 Their absence never breaks anything: gettext falls back to the source strings.
 """
-__version__ = "1.0.1"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.1.0"   # version propre à CE fichier ; incrémentée quand il change
 
 import gettext
 import json
@@ -114,16 +114,31 @@ def resolve_language():
 
 # ---------- gettext installation ----------
 
-def install():
-    """Return the translation function for the resolved language. Never raises:
-    missing catalogs fall back to the source (English) strings."""
+def _translation():
+    """The catalog for the resolved language. Never raises: a missing catalog
+    falls back to the source (English) strings."""
     try:
-        tr = gettext.translation(DOMAIN, LOCALE_DIR,
-                                 languages=[resolve_language()],
-                                 fallback=True)
+        return gettext.translation(DOMAIN, LOCALE_DIR,
+                                   languages=[resolve_language()],
+                                   fallback=True)
     except Exception:
-        tr = gettext.NullTranslations()
-    return tr.gettext
+        return gettext.NullTranslations()
+
+
+def install():
+    """Return the translation function for the resolved language."""
+    return _translation().gettext
+
+
+def install_plural():
+    """Return the translation function for COUNTED strings.
+
+    A counted sentence cannot go through the ordinary one: gettext has to be
+    told the number, because the form to use is a property of the language,
+    not of the string. French and English both have two forms but do not
+    agree on where the boundary falls — French says "0 photo" where English
+    says "0 photos" — and other languages have three or more."""
+    return _translation().ngettext
 
 
 # ---------- locale environment for external programs (zenity) ----------
@@ -166,3 +181,4 @@ def subprocess_env():
 
 
 _ = install()
+ngettext = install_plural()
