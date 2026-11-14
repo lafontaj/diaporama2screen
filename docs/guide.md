@@ -99,6 +99,8 @@ launcher.
 
 ## The window
 
+![The diaporama2screen window](screenshot.png)
+
 Four areas, from top to bottom.
 
 **The toolbar** — add photographs, remove them, re-read the captions from

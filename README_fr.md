@@ -9,6 +9,8 @@ Le résultat est un seul fichier MP4. Une clé USB suffit à le lire sur
 n'importe quel téléviseur récent, sans ordinateur, sans réseau et sans
 lecteur particulier.
 
+![La fenêtre de diaporama2screen](docs/screenshot_fr.png)
+
 ## Ce que fait l'application
 
 Chaque photographie est mise en page à la résolution du téléviseur, sa

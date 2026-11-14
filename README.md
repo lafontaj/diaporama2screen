@@ -8,6 +8,8 @@ on a television.
 The result is a single MP4 file. A USB stick is all it takes to play it on
 any modern television — no computer, no network, no particular player.
 
+![The diaporama2screen window](docs/screenshot.png)
+
 ## What it does
 
 Each photograph is laid out at the television's resolution with its caption

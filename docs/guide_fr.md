@@ -103,6 +103,8 @@ nouveau lanceur.
 
 ## La fenêtre
 
+![La fenêtre de diaporama2screen](screenshot_fr.png)
+
 Quatre zones, de haut en bas.
 
 **La barre d'outils** — ajouter des photographies, en retirer, relire les
