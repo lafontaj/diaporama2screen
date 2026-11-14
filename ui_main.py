@@ -7,7 +7,7 @@ The list on the left is BOTH the selection and the order of the slideshow:
 keeping two separate lists would mean keeping them in step, which is exactly
 the kind of bookkeeping that goes wrong.
 """
-__version__ = "1.4.0"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.4.1"   # version propre à CE fichier ; incrémentée quand il change
 
 import os
 import tkinter as tk
@@ -46,6 +46,7 @@ class App(tk.Tk):
         self.preview = preview_mod.Preview()
         self._preview_job = None
         self._current_photo = None
+        self._caption_photo = None    # whose caption the field is holding
         self._shown_image = None      # keeps Tk from discarding the image
 
         self.title(APP_TITLE)
@@ -248,24 +249,37 @@ class App(tk.Tk):
     def selected_indexes(self):
         return sorted(int(iid) for iid in self.tree.selection())
 
+    def _row(self, index):
+        """The values and tags of one line of the list."""
+        photo = self.proj.photos[index]
+        if not photo.exists:
+            return (index + 1, photo.name, _("file not found")), ("missing",)
+        if not photo.caption:
+            return (index + 1, photo.name, ""), ("nocaption",)
+        caption = photo.caption
+        if photo.has_override:
+            caption = "* " + caption
+        return (index + 1, photo.name, caption), ()
+
+    def _update_row(self, index):
+        """Rewrite one line in place, leaving the selection alone.
+
+        Rebuilding the whole list to show a changed caption used to cost the
+        user the line they had just clicked: the click moved the focus out
+        of the caption field, which applied the caption, which rebuilt the
+        list and put the selection back where it had been."""
+        iid = str(index)
+        if self.tree.exists(iid):
+            values, tags = self._row(index)
+            self.tree.item(iid, values=values, tags=tags)
+
     def refresh_list(self, select=None):
         """Rebuild the list. `select` is a list of indexes to re-select."""
         keep = select if select is not None else self.selected_indexes()
         self.tree.delete(*self.tree.get_children())
-        for i, photo in enumerate(self.proj.photos):
-            if not photo.exists:
-                tags = ("missing",)
-                caption = _("file not found")
-            elif not photo.caption:
-                tags = ("nocaption",)
-                caption = ""
-            else:
-                tags = ()
-                caption = photo.caption
-                if photo.has_override:
-                    caption = "* " + caption
-            self.tree.insert("", "end", iid=str(i),
-                             values=(i + 1, photo.name, caption), tags=tags)
+        for i, _photo in enumerate(self.proj.photos):
+            values, tags = self._row(i)
+            self.tree.insert("", "end", iid=str(i), values=values, tags=tags)
         for i in keep:
             if 0 <= i < len(self.proj.photos):
                 self.tree.selection_add(str(i))
@@ -354,6 +368,12 @@ class App(tk.Tk):
 
     def _show_caption(self):
         photo = self._current_photo
+        # Remember whose caption the field is holding. What the field shows
+        # and what the list has selected are not always the same thing for a
+        # moment: clicking another line moves the focus before the selection
+        # changes, so the edit has to be applied to the photo it was typed
+        # for, not to whichever one happens to be selected by then.
+        self._caption_photo = photo
         if photo is None:
             self.var_caption.set("")
             self.entry_caption.configure(state="disabled")
@@ -372,7 +392,7 @@ class App(tk.Tk):
                 text=_("This photo has no caption in its metadata."))
 
     def on_caption_apply(self, event=None):
-        photo = self._current_photo
+        photo = self._caption_photo
         if photo is None:
             return
         try:
@@ -383,7 +403,7 @@ class App(tk.Tk):
         if text == photo.caption:
             return
         self.proj.set_override(index, text)
-        self.refresh_list(select=[index])
+        self._update_row(index)
         self._show_caption()
         self.update_title()
 
@@ -396,7 +416,7 @@ class App(tk.Tk):
         except ValueError:
             return
         self.proj.set_override(index, None)
-        self.refresh_list(select=[index])
+        self._update_row(index)
         self._show_caption()
         self.update_title()
 
