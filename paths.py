@@ -15,7 +15,7 @@ APP_NAME = "diaporama2screen"
 # Version of the APPLICATION as a whole — not of this file, which carries its
 # own __version__ above like every other module. This is the number a bug
 # report should quote, so it lives in the one module every other one imports.
-APP_VERSION = "1.0.3"
+APP_VERSION = "1.0.4"
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
 
 

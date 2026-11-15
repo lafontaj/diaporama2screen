@@ -127,8 +127,9 @@ It is browsed one folder at a time: the field at the top shows the current
 folder, **Change…** picks another, and **Parent folder** moves up one level.
 **Include subfolders** extends the board to everything underneath.
 
-Each thumbnail carries a tick box and the file name. **Select all** and
-**Select none** act on the folder on display.
+Each thumbnail carries a tick box and the file name. Nothing is ticked on
+arrival in a folder: **Select all** and **Select none** act on the folder on
+display.
 
 The important part: **ticks survive a change of folder.** You can walk
 through five albums, ticking what suits as you go, and confirm only once at

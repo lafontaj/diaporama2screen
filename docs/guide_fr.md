@@ -132,8 +132,9 @@ courant, **Changer…** en choisit un autre, et **Dossier parent** remonte
 d'un niveau. **Inclure les sous-dossiers** étend la planche à tout ce qui
 se trouve en dessous.
 
-Chaque vignette porte une case à cocher et le nom du fichier. **Tout
-sélectionner** et **Tout désélectionner** agissent sur le dossier affiché.
+Chaque vignette porte une case à cocher et le nom du fichier. Rien n'est
+coché à l'arrivée dans un dossier : **Tout sélectionner** et **Tout
+désélectionner** agissent sur le dossier affiché.
 
 Le point important : **les cases cochées survivent au changement de
 dossier.** On peut donc traverser cinq albums, cocher au passage ce qui

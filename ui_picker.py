@@ -16,7 +16,7 @@ Thumbnails are decoded a few at a time on the Tk event loop rather than all at
 once: the grid appears immediately and fills in, instead of freezing for the
 time it takes to read a hundred scans.
 """
-__version__ = "2.2.0"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "2.3.0"   # version propre à CE fichier ; incrémentée quand il change
 
 import os
 import tkinter as tk
@@ -54,7 +54,6 @@ class PhotoPicker(tk.Toplevel):
         self.result = []
         self._already = set(already)
         self._chosen = set()
-        self._visited = set()
         self._folder = folder or os.path.expanduser("~")
         self._paths = []
         self._vars = []
@@ -177,27 +176,22 @@ class PhotoPicker(tk.Toplevel):
             self.load_folder(parent)
 
     def _reload(self):
-        self._visited.discard(self._key())
         self.load_folder(self._folder)
 
-    def _key(self):
-        return (self._folder, bool(self.var_recursive.get()))
-
     def load_folder(self, folder):
-        """Show the images of a folder. Ticks made elsewhere are kept."""
+        """Show the images of a folder. Ticks made elsewhere are kept.
+
+        Nothing is ticked on arrival. A folder crossed on the way to another
+        one used to come away with every photograph in it ticked, and since
+        ticks follow from folder to folder, a wrong turn was both easy to
+        make and invisible afterwards. "Select all" is one click for the
+        folders that really are wanted whole."""
         self._stop_thumbnails()
         self._folder = folder
         self.lbl_folder.configure(text=folder)
         self._paths = [p for p in
                        project_mod.scan_folder(folder,
                                                self.var_recursive.get())]
-        key = self._key()
-        first_visit = key not in self._visited
-        self._visited.add(key)
-        if first_visit:
-            for path in self._paths:
-                if path not in self._already:
-                    self._chosen.add(path)
         self._build_grid()
         self._refresh_count()
         self._start_thumbnails()
