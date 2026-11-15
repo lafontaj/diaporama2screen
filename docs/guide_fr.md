@@ -280,9 +280,9 @@ C'est la question qu'on se pose toujours trop tard, donc les deux chemins
 sont affichés en clair.
 
 Par défaut, les images vont dans `~/Diaporama/<nom du projet>-1920x1080`
-— avec la résolution réelle dans le nom, pour qu'un essai en HD et un
-montage final en 4K ne se mélangent pas — et la vidéo dans
-`~/Diaporama/<nom du projet>.mp4`.
+et la vidéo dans `~/Diaporama/<nom du projet>-1920x1080.mp4`. Les deux
+portent la résolution réelle, pour qu'un essai en HD et un montage final en
+4K ne se disputent pas le même nom.
 
 **Changer…** choisit un autre emplacement, **Automatique** revient au
 calcul par défaut.
@@ -337,7 +337,7 @@ avec le choix d'enregistrer, de ne pas enregistrer ou de rester.
 | Cache des vignettes | `~/.cache/diaporama2screen` |
 | Projets | `~/Diaporama/projets` |
 | Images mises en page | `~/Diaporama/<projet>-<largeur>x<hauteur>` |
-| Vidéos | `~/Diaporama/<projet>.mp4` |
+| Vidéos | `~/Diaporama/<projet>-<largeur>x<hauteur>.mp4` |
 
 Rien n'est écrit ailleurs, et aucune de ces destinations n'est obligatoire :
 les deux dernières se choisissent projet par projet.

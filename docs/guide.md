@@ -267,9 +267,10 @@ With no music, the video is silent.
 This is the question one always asks too late, so both paths are shown
 plainly.
 
-By default the images go to `~/Diaporama/<project name>-1920x1080` — with
-the real resolution in the name, so that an HD trial and a 4K final cut do
-not mix — and the video to `~/Diaporama/<project name>.mp4`.
+By default the images go to `~/Diaporama/<project name>-1920x1080` and the
+video to `~/Diaporama/<project name>-1920x1080.mp4`. Both carry the real
+resolution, so that an HD trial and a 4K final cut need not fight over one
+name.
 
 **Change…** picks another location, **Automatic** returns to the default
 calculation.
@@ -322,7 +323,7 @@ choice of saving, not saving, or staying.
 | Thumbnail cache | `~/.cache/diaporama2screen` |
 | Projects | `~/Diaporama/projets` |
 | Laid-out images | `~/Diaporama/<project>-<width>x<height>` |
-| Videos | `~/Diaporama/<project>.mp4` |
+| Videos | `~/Diaporama/<project>-<width>x<height>.mp4` |
 
 Nothing is written anywhere else, and none of these destinations is
 compulsory: the last two are chosen project by project.

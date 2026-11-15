@@ -12,7 +12,7 @@ an OVERRIDE for a photo: a text that is used for the slideshow without being
 written back into the archive. That is the safe default; writing into the
 originals is a separate, explicit action.
 """
-__version__ = "1.0.1"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.1.0"   # version propre à CE fichier ; incrémentée quand il change
 
 import json
 import os
@@ -260,11 +260,18 @@ class Project:
                             "{}-{}x{}".format(self.base_name, width, height))
 
     def video_path(self):
-        """File that will hold the video."""
+        """File that will hold the video.
+
+        The resolution is part of the name, exactly as it is for the images
+        folder: a trial in HD and a final cut in 4K are two different files
+        and should not have to fight over one name."""
         chosen = (self.settings.get("video_path") or "").strip()
         if chosen:
             return chosen
-        return os.path.join(paths.output_dir(), self.base_name + ".mp4")
+        width, height = self.size
+        return os.path.join(paths.output_dir(),
+                            "{}-{}x{}.mp4".format(self.base_name,
+                                                  width, height))
 
     def images_dir_is_automatic(self):
         return not (self.settings.get("images_dir") or "").strip()
