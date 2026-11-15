@@ -7,7 +7,7 @@ The list on the left is BOTH the selection and the order of the slideshow:
 keeping two separate lists would mean keeping them in step, which is exactly
 the kind of bookkeeping that goes wrong.
 """
-__version__ = "1.4.1"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.4.2"   # version propre à CE fichier ; incrémentée quand il change
 
 import os
 import tkinter as tk
@@ -124,6 +124,24 @@ class App(tk.Tk):
 
         self.configure(menu=bar)
 
+    @staticmethod
+    def _button_width(labels):
+        """A ttk button width, in characters, that holds every label.
+
+        ttk counts a width in characters, not pixels, so counting the letters
+        of the longest label is only right for the font it was counted in.
+        The labels are therefore measured in the font actually in use and
+        converted back into ttk's unit, with two characters to spare."""
+        labels = list(labels)      # the fallback must still see them
+        try:
+            import tkinter.font as tkfont
+            font = tkfont.nametofont("TkDefaultFont")
+            unit = max(1, font.measure("0"))
+            widest = max(font.measure(label) for label in labels)
+            return widest // unit + 2
+        except Exception:
+            return max(len(label) for label in labels) + 2
+
     def _build_body(self):
         toolbar = ttk.Frame(self, padding=(8, 6))
         toolbar.pack(side="top", fill="x")
@@ -177,17 +195,20 @@ class App(tk.Tk):
 
         order = ttk.Frame(frame, padding=(0, 6, 0, 0))
         order.grid(row=1, column=0, columnspan=2, sticky="w")
-        ttk.Button(order, text=_("Top"), width=8,
-                   command=lambda: self.on_edge(True)).pack(side="left")
-        ttk.Button(order, text=_("Up"), width=8,
-                   command=lambda: self.on_move(-1)).pack(side="left",
-                                                          padx=(4, 0))
-        ttk.Button(order, text=_("Down"), width=8,
-                   command=lambda: self.on_move(1)).pack(side="left",
-                                                         padx=(4, 0))
-        ttk.Button(order, text=_("Bottom"), width=8,
-                   command=lambda: self.on_edge(False)).pack(side="left",
-                                                             padx=(4, 0))
+        # The four buttons share one width so that the row stays even, and
+        # that width is taken from the longest label in the language actually
+        # in use rather than fixed: "Descendre" needs more room than "Down",
+        # and a ttk width is counted in characters, so a fixed one truncates
+        # as soon as a translation is longer than the English it was set for.
+        moves = ((_("Top"), lambda: self.on_edge(True)),
+                 (_("Up"), lambda: self.on_move(-1)),
+                 (_("Down"), lambda: self.on_move(1)),
+                 (_("Bottom"), lambda: self.on_edge(False)))
+        move_width = self._button_width(label for label, _command in moves)
+        for position, (label, command) in enumerate(moves):
+            ttk.Button(order, text=label, width=move_width,
+                       command=command).pack(
+                           side="left", padx=((4, 0) if position else 0))
         ttk.Button(order, text=_("Sort by name"),
                    command=self.on_sort_name).pack(side="left", padx=(16, 0))
         ttk.Button(order, text=_("Sort by date"),
