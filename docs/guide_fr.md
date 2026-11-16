@@ -119,7 +119,10 @@ nom ou par date.
 son chemin complet, et sa légende, modifiable. Le chemin est écrit en
 entier, sur plusieurs lignes au besoin : savoir de quel dossier vient une
 photographie est souvent ce qui tranche entre deux numérisations du même
-cliché.
+cliché. Le bouton **Copier le chemin** le met dans le presse-papiers ; le
+bouton droit de la souris, sur le nom ou sur le chemin, offre la même chose
+et **Ouvrir le dossier contenant**, qui ouvre le gestionnaire de fichiers à
+l'endroit voulu.
 
 **Les réglages** — format, durées, musique, dossiers de sortie, et le
 bouton qui lance la production.

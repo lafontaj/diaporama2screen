@@ -7,9 +7,10 @@ The list on the left is BOTH the selection and the order of the slideshow:
 keeping two separate lists would mean keeping them in step, which is exactly
 the kind of bookkeeping that goes wrong.
 """
-__version__ = "1.6.0"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.7.0"   # version propre à CE fichier ; incrémentée quand il change
 
 import os
+import subprocess
 import tkinter as tk
 from tkinter import ttk
 
@@ -234,8 +235,16 @@ class App(tk.Tk):
                                       text=_("Select a photo to see it here."))
         self.preview_label.place(relx=0.5, rely=0.5, anchor="center")
 
-        self.lbl_info = ttk.Label(frame, anchor="w", padding=(2, 6, 2, 0))
-        self.lbl_info.grid(row=1, column=0, sticky="ew")
+        info_line = ttk.Frame(frame)
+        info_line.grid(row=1, column=0, sticky="ew")
+        info_line.columnconfigure(0, weight=1)
+        self.lbl_info = ttk.Label(info_line, anchor="w",
+                                  padding=(2, 6, 2, 0))
+        self.lbl_info.grid(row=0, column=0, sticky="ew")
+        self.btn_copy_path = ttk.Button(
+            info_line, text=_("Copy the path"), command=self.on_copy_path)
+        self.btn_copy_path.grid(row=0, column=1, sticky="e", padx=(8, 2))
+        self.btn_copy_path.state(["disabled"])
 
         # The whole path, wrapped rather than cut: knowing which of two
         # folders a photograph came from is the point, and a path shortened
@@ -245,6 +254,17 @@ class App(tk.Tk):
                                   foreground="#777777",
                                   padding=(2, 1, 2, 0))
         self.lbl_path.grid(row=2, column=0, sticky="ew")
+
+        # The same two actions under the right button, for whoever looks
+        # for them there. The button alone would be discoverable but not
+        # where the path actually is; the menu alone would be invisible.
+        self.path_menu = tk.Menu(self, tearoff=0)
+        self.path_menu.add_command(label=_("Copy the path"),
+                                   command=self.on_copy_path)
+        self.path_menu.add_command(label=_("Open the containing folder"),
+                                   command=self.on_open_containing)
+        for widget in (self.lbl_info, self.lbl_path):
+            widget.bind("<Button-3>", self._post_path_menu)
 
         caption_box = ttk.LabelFrame(frame, text=_("Caption"), padding=(8, 6))
         caption_box.grid(row=3, column=0, sticky="ew", pady=(6, 0))
@@ -378,6 +398,7 @@ class App(tk.Tk):
                 image="", text=_("Select a photo to see it here."))
             self.lbl_info.configure(text="")
             self.lbl_path.configure(text="")
+            self.btn_copy_path.state(["disabled"])
             return
         if not photo.exists:
             self._shown_image = None
@@ -385,6 +406,7 @@ class App(tk.Tk):
                                          text=_("This file no longer exists."))
             self.lbl_info.configure(text=photo.name)
             self.lbl_path.configure(text=photo.path)
+            self.btn_copy_path.state(["!disabled"])
             return
         width = max(64, self.preview_holder.winfo_width() - 16)
         height = max(64, self.preview_holder.winfo_height() - 16)
@@ -402,6 +424,7 @@ class App(tk.Tk):
         self.lbl_info.configure(text="{name}   ·   {date}".format(
             name=photo.name, date=date))
         self.lbl_path.configure(text=photo.path)
+        self.btn_copy_path.state(["!disabled"])
 
     # ------------------------------------------------------------------
     # captions
@@ -431,6 +454,48 @@ class App(tk.Tk):
         else:
             self.lbl_caption_origin.configure(
                 text=_("This photo has no caption in its metadata."))
+
+    def _post_path_menu(self, event):
+        if self._current_photo is None:
+            return
+        try:
+            self.path_menu.tk_popup(event.x_root, event.y_root)
+        finally:
+            self.path_menu.grab_release()
+
+    def on_copy_path(self):
+        """Put the whole path on the clipboard.
+
+        Tk hands the clipboard over as long as the application runs; a path
+        copied here is therefore available until diaporama2screen is closed,
+        which is the usual X11 behaviour rather than a limitation of ours."""
+        photo = self._current_photo
+        if photo is None:
+            return
+        try:
+            self.clipboard_clear()
+            self.clipboard_append(photo.path)
+            self.update_idletasks()
+        except tk.TclError:
+            return
+        self.btn_copy_path.configure(text=_("Copied"))
+        self.after(1500, self._restore_copy_button)
+
+    def _restore_copy_button(self):
+        try:
+            self.btn_copy_path.configure(text=_("Copy the path"))
+        except tk.TclError:
+            pass
+
+    def on_open_containing(self):
+        photo = self._current_photo
+        if photo is None:
+            return
+        folder = os.path.dirname(photo.path)
+        try:
+            subprocess.Popen(["xdg-open", folder])
+        except OSError as exc:
+            ui_dialogs.error(self, str(exc))
 
     def on_caption_apply(self, event=None):
         photo = self._caption_photo

@@ -267,6 +267,12 @@ msgstr "Trier par date"
 msgid "Select a photo to see it here."
 msgstr "Sélectionnez une photo pour la voir ici."
 
+msgid "Copy the path"
+msgstr "Copier le chemin"
+
+msgid "Open the containing folder"
+msgstr "Ouvrir le dossier contenant"
+
 msgid "Restore the file's caption"
 msgstr "Rétablir la légende du fichier"
 
@@ -317,6 +323,9 @@ msgstr "Lue dans le fichier."
 
 msgid "This photo has no caption in its metadata."
 msgstr "Cette photo ne porte aucune légende dans ses métadonnées."
+
+msgid "Copied"
+msgstr "Copié"
 
 msgid "This caption is already the one in the file. There is nothing to write."
 msgstr "Cette légende est déjà celle du fichier. Il n'y a rien à écrire."

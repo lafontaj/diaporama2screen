@@ -114,7 +114,10 @@ date.
 **The preview** — the photograph chosen in the list, its name and date, its
 whole path, and its caption, open for editing. The path is written out in
 full, over several lines if need be: which folder a photograph came from is
-often what tells two scans of the same picture apart.
+often what tells two scans of the same picture apart. **Copy the path**
+puts it on the clipboard; the right mouse button, on the name or on the
+path, offers the same and **Open the containing folder**, which opens the
+file manager where the photograph lives.
 
 **The settings** — format, timings, music, output folders, and the button
 that starts the production.
