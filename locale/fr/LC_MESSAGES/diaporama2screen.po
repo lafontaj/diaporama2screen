@@ -270,6 +270,9 @@ msgstr "Sélectionnez une photo pour la voir ici."
 msgid "Copy the path"
 msgstr "Copier le chemin"
 
+msgid "Copy the file name"
+msgstr "Copier le nom du fichier"
+
 msgid "Open the containing folder"
 msgstr "Ouvrir le dossier contenant"
 

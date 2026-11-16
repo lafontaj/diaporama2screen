@@ -10,7 +10,7 @@ rien ne casse.
 Les msgid sur plusieurs lignes sont recollés avant la recherche, de sorte que
 la table ci-dessous se lit comme du texte ordinaire.
 """
-__version__ = "1.2.2"
+__version__ = "1.2.3"
 
 import os
 import re
@@ -102,6 +102,7 @@ FR = {
     "Select a photo to see it here.":
         "Sélectionnez une photo pour la voir ici.",
     "Copy the path": "Copier le chemin",
+    "Copy the file name": "Copier le nom du fichier",
     "Copied": "Copié",
     "Open the containing folder": "Ouvrir le dossier contenant",
     "Restore the file's caption": "Rétablir la légende du fichier",

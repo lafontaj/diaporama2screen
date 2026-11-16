@@ -7,7 +7,7 @@ The list on the left is BOTH the selection and the order of the slideshow:
 keeping two separate lists would mean keeping them in step, which is exactly
 the kind of bookkeeping that goes wrong.
 """
-__version__ = "1.7.0"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.7.1"   # version propre à CE fichier ; incrémentée quand il change
 
 import os
 import subprocess
@@ -261,6 +261,9 @@ class App(tk.Tk):
         self.path_menu = tk.Menu(self, tearoff=0)
         self.path_menu.add_command(label=_("Copy the path"),
                                    command=self.on_copy_path)
+        self.path_menu.add_command(label=_("Copy the file name"),
+                                   command=self.on_copy_name)
+        self.path_menu.add_separator()
         self.path_menu.add_command(label=_("Open the containing folder"),
                                    command=self.on_open_containing)
         for widget in (self.lbl_info, self.lbl_path):
@@ -463,23 +466,30 @@ class App(tk.Tk):
         finally:
             self.path_menu.grab_release()
 
-    def on_copy_path(self):
-        """Put the whole path on the clipboard.
+    def _copy(self, text):
+        """Put some text on the clipboard and say so for a moment.
 
-        Tk hands the clipboard over as long as the application runs; a path
+        Tk hands the clipboard over as long as the application runs; what is
         copied here is therefore available until diaporama2screen is closed,
         which is the usual X11 behaviour rather than a limitation of ours."""
-        photo = self._current_photo
-        if photo is None:
+        if not text:
             return
         try:
             self.clipboard_clear()
-            self.clipboard_append(photo.path)
+            self.clipboard_append(text)
             self.update_idletasks()
         except tk.TclError:
             return
         self.btn_copy_path.configure(text=_("Copied"))
         self.after(1500, self._restore_copy_button)
+
+    def on_copy_path(self):
+        if self._current_photo is not None:
+            self._copy(self._current_photo.path)
+
+    def on_copy_name(self):
+        if self._current_photo is not None:
+            self._copy(self._current_photo.name)
 
     def _restore_copy_button(self):
         try:
