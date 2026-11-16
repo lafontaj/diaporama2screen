@@ -144,6 +144,39 @@ meanwhile, and the wheel scrolls even before everything is drawn.
 
 ---
 
+### Importing a selection made in digiKam
+
+digiKam searches by tag, by face, by date — which this application does not
+do and does not try to. The bridge between the two is the tag.
+
+Whoever does the choosing puts a tag on what they keep, say
+"Events/Slideshow". digiKam writes it into the photographs themselves, and
+**File ▸ Import from a tag…** finds them again.
+
+The window asks for a folder, then **Look for tags** sweeps it and lists
+every tag found with the number of photographs carrying it. The **Filter**
+field narrows the list as it is typed, ignoring accents and case:
+"evenements" finds "Événements". Ticks survive the filter, so one tag can be
+ticked, something else looked up, and the next one ticked.
+
+**Add** adds the photographs of the ticked tags to the slideshow. Those
+already in it are left alone: importing adds, it does not replace. The
+**Replace the slideshow instead of adding to it** box is there for starting
+over, and it asks for confirmation before emptying anything — which affects
+the slideshow only, never the files.
+
+Four fields are consulted, because cataloguers do not agree with one
+another: `XMP:TagsList` and `XMP:HierarchicalSubject` for hierarchical tags,
+`XMP:Subject` and `IPTC:Keywords` for plain keywords. digiKam usually writes
+all four.
+
+ℹ **digiKam has to write its tags into the files** for the import to see
+anything — it is a setting among its metadata options. Without it the tags
+stay in its database, which this application does not read.
+
+A tag gives a set, not a sequence: the order is settled afterwards in the
+list.
+
 ## 2. Captions
 
 This is the heart of the application, and the place to understand what

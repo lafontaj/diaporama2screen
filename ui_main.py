@@ -7,7 +7,7 @@ The list on the left is BOTH the selection and the order of the slideshow:
 keeping two separate lists would mean keeping them in step, which is exactly
 the kind of bookkeeping that goes wrong.
 """
-__version__ = "1.4.2"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.5.0"   # version propre à CE fichier ; incrémentée quand il change
 
 import os
 import tkinter as tk
@@ -21,6 +21,7 @@ import paths
 import preview as preview_mod
 import project as project_mod
 import ui_dialogs
+import ui_import
 import ui_picker
 import ui_render
 from ui_settings import SettingsPanel, format_duration
@@ -94,6 +95,9 @@ class App(tk.Tk):
                               command=later(self.on_save))
         file_menu.add_command(label=_("Save as…"),
                               command=later(self.on_save_as))
+        file_menu.add_separator()
+        file_menu.add_command(label=_("Import from a tag…"),
+                              command=later(self.on_import_tag))
         file_menu.add_separator()
         file_menu.add_command(label=_("Quit"), command=later(self.on_quit))
         bar.add_cascade(label=_("File"), menu=file_menu)
@@ -559,6 +563,35 @@ class App(tk.Tk):
                 self,
                 _("Nothing added: those photos are already in the slideshow, "
                   "or are not images."))
+
+    def on_import_tag(self):
+        """Add the photographs that carry a tag chosen in digiKam."""
+        missing = deps.missing(deps.FOR_CAPTIONS)
+        if missing:
+            ui_dialogs.error(self, deps.report(deps.FOR_CAPTIONS))
+            return
+
+        paths, replace = ui_import.choose(
+            self, self._last_folder(), title=_("Import from a tag"))
+        if not paths:
+            return
+
+        if replace and not self._confirm_discard():
+            return
+
+        self.configure(cursor="watch")
+        self.update_idletasks()
+        try:
+            if replace:
+                self.proj = project_mod.Project()
+                self.settings_panel.load_from_project()
+            added, skipped = self.proj.add_paths(paths)
+        finally:
+            self.configure(cursor="")
+        i18n.write_setting("last_photo_folder", os.path.dirname(paths[0]))
+        self.refresh_list()
+        self.update_title()
+        self._report_added(added, skipped)
 
     def on_remove(self):
         indexes = self.selected_indexes()

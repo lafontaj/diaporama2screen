@@ -23,6 +23,10 @@ IPTC, XMP et EXIF que remplissent digiKam et les autres catalogueurs —
 jamais dans la base de données d'un catalogue. Une photographie déjà
 légendée dans digiKam arrive avec sa légende en place, sans rien exporter.
 
+Le tri se fait d'ailleurs volontiers dans digiKam, qui cherche par
+étiquette et par visage : il suffit d'y poser une étiquette sur les photos
+retenues, puis de les importer ici par cette étiquette.
+
 Une légende peut aussi être modifiée pour le diaporama seulement, sans
 toucher au fichier d'origine. L'écrire dans la photographie est une action
 distincte et explicite, et l'application relit ensuite les fichiers pour

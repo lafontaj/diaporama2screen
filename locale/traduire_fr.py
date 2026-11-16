@@ -10,7 +10,7 @@ rien ne casse.
 Les msgid sur plusieurs lignes sont recollés avant la recherche, de sorte que
 la table ci-dessous se lit comme du texte ordinaire.
 """
-__version__ = "1.1.0"
+__version__ = "1.2.0"
 
 import os
 import re
@@ -219,6 +219,45 @@ FR = {
     "{n} photo ticked in another folder is kept.":
         ("{n} photo cochée dans un autre dossier est conservée.",
          "{n} photos cochées dans d'autres dossiers sont conservées."),
+
+    # ui_import.py — importation par étiquette
+    "Import from a tag": "Importer depuis une étiquette",
+    "Import from a tag…": "Importer depuis une étiquette…",
+    "Look for tags": "Chercher les étiquettes",
+    "Folder to sweep for tags": "Dossier à balayer",
+    "Filter:": "Filtre :",
+    "Clear": "Effacer",
+    "Tag": "Étiquette",
+    "Photos": "Photos",
+    "{shown} of {total} tags": "{shown} sur {total} étiquettes",
+    "Tick a tag to choose its photographs.":
+        "Cochez une étiquette pour choisir ses photos.",
+    "{n} tag ticked": ("{n} étiquette cochée", "{n} étiquettes cochées"),
+    "Replace the slideshow instead of adding to it":
+        "Remplacer le diaporama au lieu d'y ajouter",
+    "That folder cannot be read.": "Ce dossier ne peut pas être lu.",
+    "exiftool is not installed, so tags cannot be read.\n\n"
+    "  sudo apt install libimage-exiftool-perl":
+        "exiftool n'est pas installé, les étiquettes ne peuvent pas être "
+        "lues.\n\n  sudo apt install libimage-exiftool-perl",
+    "The sweep took too long and was stopped.":
+        "Le balayage a été trop long et a été interrompu.",
+    "exiftool answered something unexpected.":
+        "exiftool a répondu quelque chose d'inattendu.",
+    "No tag was found in that folder. In digiKam, check that tags are "
+    "written into the files themselves.":
+        "Aucune étiquette n'a été trouvée dans ce dossier. Dans digiKam, "
+        "vérifiez que les étiquettes sont écrites dans les fichiers "
+        "eux-mêmes.",
+    "The slideshow will be emptied and replaced by {n} photograph. The "
+    "photographs now in it will be dropped, and nothing on disk is touched. "
+    "Continue?":
+        ("Le diaporama sera vidé et remplacé par {n} photo. Les photos qui "
+         "s'y trouvent seront retirées, et rien n'est touché sur le disque. "
+         "Continuer ?",
+         "Le diaporama sera vidé et remplacé par {n} photos. Les photos qui "
+         "s'y trouvent seront retirées, et rien n'est touché sur le disque. "
+         "Continuer ?"),
 
     # ui_render.py
     "Producing the slideshow": "Production du diaporama",

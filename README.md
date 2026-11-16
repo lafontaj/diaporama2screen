@@ -21,6 +21,10 @@ EXIF fields digiKam and other cataloguers write — never from a catalogue
 database. A photograph already captioned in digiKam arrives with its caption
 in place, with nothing to export.
 
+The choosing itself is best left to digiKam, which searches by tag and by
+face: put a tag on the photographs you keep, then import them here by that
+tag.
+
 Captions can also be edited for the slideshow alone, leaving the original
 files untouched. Writing a caption back into a photograph is a separate,
 explicit action, and the application reads the files back afterwards to

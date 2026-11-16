@@ -108,6 +108,81 @@ msgstr "Enregistrer"
 msgid "Discard"
 msgstr "Abandonner"
 
+msgid "Import from a tag"
+msgstr "Importer depuis une étiquette"
+
+msgid "Folder:"
+msgstr "Dossier :"
+
+msgid "Change…"
+msgstr "Changer…"
+
+msgid "Include subfolders"
+msgstr "Inclure les sous-dossiers"
+
+msgid "Look for tags"
+msgstr "Chercher les étiquettes"
+
+msgid "Filter:"
+msgstr "Filtre :"
+
+msgid "Clear"
+msgstr "Effacer"
+
+msgid "Tag"
+msgstr "Étiquette"
+
+msgid "Photos"
+msgstr "Photos"
+
+msgid "Replace the slideshow instead of adding to it"
+msgstr "Remplacer le diaporama au lieu d'y ajouter"
+
+msgid "Add"
+msgstr "Ajouter"
+
+msgid "Folder to sweep for tags"
+msgstr "Dossier à balayer"
+
+msgid "That folder cannot be read."
+msgstr "Ce dossier ne peut pas être lu."
+
+msgid "exiftool is not installed, so tags cannot be read.\n\n  sudo apt install libimage-exiftool-perl"
+msgstr "exiftool n'est pas installé, les étiquettes ne peuvent pas être lues.\n\n  sudo apt install libimage-exiftool-perl"
+
+msgid "The sweep took too long and was stopped."
+msgstr "Le balayage a été trop long et a été interrompu."
+
+msgid "exiftool answered something unexpected."
+msgstr "exiftool a répondu quelque chose d'inattendu."
+
+msgid "No tag was found in that folder. In digiKam, check that tags are written into the files themselves."
+msgstr "Aucune étiquette n'a été trouvée dans ce dossier. Dans digiKam, vérifiez que les étiquettes sont écrites dans les fichiers eux-mêmes."
+
+msgid "Stop"
+msgstr "Interrompre"
+
+msgid "{shown} of {total} tags"
+msgstr "{shown} sur {total} étiquettes"
+
+msgid "{n} tag ticked"
+msgid_plural "{n} tags ticked"
+msgstr[0] "{n} étiquette cochée"
+msgstr[1] "{n} étiquettes cochées"
+
+msgid "{n} photo"
+msgid_plural "{n} photos"
+msgstr[0] "{n} photo"
+msgstr[1] "{n} photos"
+
+msgid "Tick a tag to choose its photographs."
+msgstr "Cochez une étiquette pour choisir ses photos."
+
+msgid "The slideshow will be emptied and replaced by {n} photograph. The photographs now in it will be dropped, and nothing on disk is touched. Continue?"
+msgid_plural "The slideshow will be emptied and replaced by {n} photographs. The photographs now in it will be dropped, and nothing on disk is touched. Continue?"
+msgstr[0] "Le diaporama sera vidé et remplacé par {n} photo. Les photos qui s'y trouvent seront retirées, et rien n'est touché sur le disque. Continuer ?"
+msgstr[1] "Le diaporama sera vidé et remplacé par {n} photos. Les photos qui s'y trouvent seront retirées, et rien n'est touché sur le disque. Continuer ?"
+
 msgid "New project"
 msgstr "Nouveau projet"
 
@@ -116,6 +191,9 @@ msgstr "Ouvrir…"
 
 msgid "Save as…"
 msgstr "Enregistrer sous…"
+
+msgid "Import from a tag…"
+msgstr "Importer depuis une étiquette…"
 
 msgid "Quit"
 msgstr "Quitter"
@@ -194,11 +272,6 @@ msgstr "fichier introuvable"
 
 msgid "Empty slideshow. Add a folder or some photos to begin."
 msgstr "Diaporama vide. Ajoutez un dossier ou des photos pour commencer."
-
-msgid "{n} photo"
-msgid_plural "{n} photos"
-msgstr[0] "{n} photo"
-msgstr[1] "{n} photos"
 
 msgid "{n} with a caption"
 msgid_plural "{n} with captions"
@@ -365,26 +438,14 @@ msgstr "Aucun lanceur n'était installé."
 msgid "{app}\n\nBuild a photo slideshow with captions burnt into the image, ready to play on a television."
 msgstr "{app}\n\nMonter un diaporama photo avec la légende incrustée dans l'image, prêt à jouer sur un téléviseur."
 
-msgid "Folder:"
-msgstr "Dossier :"
-
-msgid "Change…"
-msgstr "Changer…"
-
 msgid "Parent folder"
 msgstr "Dossier parent"
-
-msgid "Include subfolders"
-msgstr "Inclure les sous-dossiers"
 
 msgid "Select all"
 msgstr "Tout cocher"
 
 msgid "Select none"
 msgstr "Tout décocher"
-
-msgid "Add"
-msgstr "Ajouter"
 
 msgid "No image in this folder."
 msgstr "Aucune image dans ce dossier."
@@ -443,9 +504,6 @@ msgstr "Voir le détail ci-dessous."
 
 msgid "Stop the production now?"
 msgstr "Interrompre la production maintenant ?"
-
-msgid "Stop"
-msgstr "Interrompre"
 
 msgid "Keep going"
 msgstr "Poursuivre"

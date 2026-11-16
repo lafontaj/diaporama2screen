@@ -151,6 +151,44 @@ même si tout n'est pas encore affiché.
 
 ---
 
+### Importer une sélection faite dans digiKam
+
+digiKam cherche par étiquette, par visage, par date — ce que cette
+application ne fait pas et n'essaie pas de faire. Le pont entre les deux est
+l'étiquette.
+
+La personne qui trie pose une étiquette sur ce qu'elle retient, par exemple
+« Événements/Diaporama Hélène ». digiKam l'inscrit dans les métadonnées des
+photographies elles-mêmes, et **Fichier ▸ Importer depuis une étiquette…**
+les retrouve.
+
+La fenêtre demande un dossier, puis **Chercher les étiquettes** le balaie et
+affiche toutes les étiquettes trouvées avec le nombre de photographies de
+chacune. Le champ **Filtre** réduit la liste à mesure qu'on tape, sans tenir
+compte des accents ni de la casse : « evenements » trouve « Événements ».
+Les cases cochées survivent au filtre, de sorte qu'on peut en cocher une,
+chercher autre chose, et cocher la suivante.
+
+**Ajouter** ajoute au diaporama les photographies des étiquettes cochées.
+Celles qui s'y trouvent déjà sont laissées telles quelles : importer ajoute,
+il ne remplace pas. La case **Remplacer le diaporama au lieu d'y ajouter**
+existe pour les cas où on veut repartir de zéro, et elle demande
+confirmation avant de vider quoi que ce soit — ce qui ne touche que le
+diaporama, jamais les fichiers.
+
+Quatre champs sont consultés, parce que les logiciels de catalogage ne
+s'entendent pas entre eux : `XMP:TagsList` et `XMP:HierarchicalSubject` pour
+les étiquettes hiérarchiques, `XMP:Subject` et `IPTC:Keywords` pour les
+mots-clés simples. digiKam écrit généralement les quatre.
+
+ℹ **digiKam doit écrire ses étiquettes dans les fichiers** pour que
+l'importation voie quoi que ce soit — c'est un réglage de ses options de
+métadonnées. Sans lui, les étiquettes restent dans sa base de données, que
+cette application ne lit pas.
+
+Une étiquette donne un ensemble, pas une séquence : l'ordre se décide
+ensuite dans la liste.
+
 ## 2. Les légendes
 
 C'est le cœur de l'application, et l'endroit où il faut comprendre ce qui
