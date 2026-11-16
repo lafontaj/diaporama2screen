@@ -159,6 +159,13 @@ field narrows the list as it is typed, ignoring accents and case:
 "evenements" finds "Événements". Ticks survive the filter, so one tag can be
 ticked, something else looked up, and the next one ticked.
 
+The first sweep of a large library takes a moment — of the order of a
+minute for a few tens of thousands of photographs, depending on the disk.
+What was read is then kept, with each file's size and modification time:
+later sweeps read only what has changed since, and answer in under a
+second. Nothing depends on it — deleting that cache costs one slow sweep,
+no more.
+
 **Add** adds the photographs of the ticked tags to the slideshow. Those
 already in it are left alone: importing adds, it does not replace. The
 **Replace the slideshow instead of adding to it** box is there for starting

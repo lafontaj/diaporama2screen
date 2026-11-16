@@ -169,6 +169,13 @@ compte des accents ni de la casse : « evenements » trouve « Événements ».
 Les cases cochées survivent au filtre, de sorte qu'on peut en cocher une,
 chercher autre chose, et cocher la suivante.
 
+Le premier balayage d'une grande photothèque demande un moment — de
+l'ordre d'une minute pour quelques dizaines de milliers de photographies,
+selon le disque. Ce qui a été lu est ensuite conservé, avec la taille et la
+date de chaque fichier : les balayages suivants ne relisent que ce qui a
+changé depuis, et répondent en moins d'une seconde. Rien n'en dépend —
+effacer ce cache ne coûte qu'un balayage lent de plus.
+
 **Ajouter** ajoute au diaporama les photographies des étiquettes cochées.
 Celles qui s'y trouvent déjà sont laissées telles quelles : importer ajoute,
 il ne remplace pas. La case **Remplacer le diaporama au lieu d'y ajouter**

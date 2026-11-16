@@ -159,6 +159,12 @@ msgstr "exiftool a répondu quelque chose d'inattendu."
 msgid "No tag was found in that folder. In digiKam, check that tags are written into the files themselves."
 msgstr "Aucune étiquette n'a été trouvée dans ce dossier. Dans digiKam, vérifiez que les étiquettes sont écrites dans les fichiers eux-mêmes."
 
+msgid "Looking through the folders…"
+msgstr "Parcours des dossiers…"
+
+msgid "{done} of {total} files read"
+msgstr "{done} fichiers lus sur {total}"
+
 msgid "Stop"
 msgstr "Interrompre"
 

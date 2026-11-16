@@ -10,7 +10,7 @@ rien ne casse.
 Les msgid sur plusieurs lignes sont recollés avant la recherche, de sorte que
 la table ci-dessous se lit comme du texte ordinaire.
 """
-__version__ = "1.2.0"
+__version__ = "1.2.1"
 
 import os
 import re
@@ -230,6 +230,8 @@ FR = {
     "Tag": "Étiquette",
     "Photos": "Photos",
     "{shown} of {total} tags": "{shown} sur {total} étiquettes",
+    "Looking through the folders…": "Parcours des dossiers…",
+    "{done} of {total} files read": "{done} fichiers lus sur {total}",
     "Tick a tag to choose its photographs.":
         "Cochez une étiquette pour choisir ses photos.",
     "{n} tag ticked": ("{n} étiquette cochée", "{n} étiquettes cochées"),

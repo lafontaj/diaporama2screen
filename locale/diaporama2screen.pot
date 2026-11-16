@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: diaporama2screen 1.0.5\n"
+"Project-Id-Version: diaporama2screen 1.1.0\n"
 "Report-Msgid-Bugs-To: jean\n"
-"POT-Creation-Date: 2026-11-16 14:01-0500\n"
+"POT-Creation-Date: 2026-11-16 14:30-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -129,7 +129,7 @@ msgstr ""
 msgid "The file “{f}” already exists. Replace it?"
 msgstr ""
 
-#: ui_dialogs.py:287 ui_import.py:321 ui_main.py:665
+#: ui_dialogs.py:287 ui_import.py:358 ui_main.py:665
 msgid "Replace"
 msgstr ""
 
@@ -141,7 +141,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: ui_dialogs.py:404 ui_dialogs.py:429 ui_dialogs.py:486 ui_import.py:150
+#: ui_dialogs.py:404 ui_dialogs.py:429 ui_dialogs.py:486 ui_import.py:151
 #: ui_picker.py:122 ui_render.py:71
 msgid "Cancel"
 msgstr ""
@@ -170,91 +170,100 @@ msgstr ""
 msgid "Include subfolders"
 msgstr ""
 
-#: ui_import.py:99 ui_import.py:230
+#: ui_import.py:99 ui_import.py:263
 msgid "Look for tags"
 msgstr ""
 
-#: ui_import.py:107
+#: ui_import.py:108
 msgid "Filter:"
 msgstr ""
 
-#: ui_import.py:113
+#: ui_import.py:114
 msgid "Clear"
 msgstr ""
 
-#: ui_import.py:125
+#: ui_import.py:126
 msgid "Tag"
 msgstr ""
 
-#: ui_import.py:126
+#: ui_import.py:127
 msgid "Photos"
 msgstr ""
 
-#: ui_import.py:147
+#: ui_import.py:148
 msgid "Replace the slideshow instead of adding to it"
 msgstr ""
 
-#: ui_import.py:152 ui_picker.py:124 ui_picker.py:368
+#: ui_import.py:153 ui_picker.py:124 ui_picker.py:368
 msgid "Add"
 msgstr ""
 
-#: ui_import.py:172
+#: ui_import.py:173
 msgid "Folder to sweep for tags"
 msgstr ""
 
-#: ui_import.py:208
+#: ui_import.py:225
 msgid "That folder cannot be read."
 msgstr ""
 
-#: ui_import.py:209
+#: ui_import.py:226
 msgid ""
 "exiftool is not installed, so tags cannot be read.\n"
 "\n"
 "  sudo apt install libimage-exiftool-perl"
 msgstr ""
 
-#: ui_import.py:212
+#: ui_import.py:229
 msgid "The sweep took too long and was stopped."
 msgstr ""
 
-#: ui_import.py:213
+#: ui_import.py:230
 msgid "exiftool answered something unexpected."
 msgstr ""
 
-#: ui_import.py:220
+#: ui_import.py:237
 msgid ""
 "No tag was found in that folder. In digiKam, check that tags are written "
 "into the files themselves."
 msgstr ""
 
-#: ui_import.py:229 ui_render.py:175
-msgid "Stop"
+#: ui_import.py:243
+msgid "Looking through the folders…"
 msgstr ""
 
 #: ui_import.py:254
 #, python-brace-format
+msgid "{done} of {total} files read"
+msgstr ""
+
+#: ui_import.py:262 ui_render.py:175
+msgid "Stop"
+msgstr ""
+
+#: ui_import.py:291
+#, python-brace-format
 msgid "{shown} of {total} tags"
 msgstr ""
 
-#: ui_import.py:294
+#: ui_import.py:331
 #, python-brace-format
 msgid "{n} tag ticked"
 msgid_plural "{n} tags ticked"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ui_import.py:296 ui_main.py:324
+#: ui_import.py:333 ui_main.py:324
 #, python-brace-format
 msgid "{n} photo"
 msgid_plural "{n} photos"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ui_import.py:301
+#: ui_import.py:338
 msgid "Tick a tag to choose its photographs."
 msgstr ""
 
-#: ui_import.py:314
+#: ui_import.py:351
 #, python-brace-format
 msgid ""
 "The slideshow will be emptied and replaced by {n} photograph. The "

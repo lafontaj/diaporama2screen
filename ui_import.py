@@ -13,7 +13,7 @@ list has a filter that narrows it as it is typed, and ticks are kept in a
 set of their own so that narrowing the list never loses a choice made
 before — the same arrangement as the thumbnail board, for the same reason.
 """
-__version__ = "1.0.0"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.1.0"   # version propre à CE fichier ; incrémentée quand il change
 
 import os
 import queue
@@ -101,6 +101,7 @@ class TagImport(tk.Toplevel):
         self.btn_scan.pack(side="left", padx=(18, 0))
         self.progress = ttk.Progressbar(line, mode="indeterminate",
                                         length=160)
+        self.lbl_progress = ttk.Label(line, text="")
 
         filtre = ttk.Frame(self, padding=(10, 8))
         filtre.pack(fill="x")
@@ -189,14 +190,30 @@ class TagImport(tk.Toplevel):
         self._poll = self.after(100, self._drain)
 
     def _work(self):
-        self._queue.put(self._scan.run())
+        result = self._scan.run(progress=self._on_progress)
+        self._queue.put(("result",) + tuple(result))
+
+    def _on_progress(self, stage, done, total):
+        """Appelé depuis le fil du balayage : on ne touche pas à Tk ici, on
+        dépose le chiffre dans la file que la fenêtre vide elle-même."""
+        self._queue.put(("progress", stage, done, total))
 
     def _drain(self):
-        try:
-            found, files, error = self._queue.get_nowait()
-        except queue.Empty:
+        message = None
+        while True:
+            try:
+                message = self._queue.get_nowait()
+            except queue.Empty:
+                break
+            if message[0] == "progress":
+                self._show_progress(message[1], message[2], message[3])
+                message = None
+                continue
+            break                      # a result ends the sweep
+        if message is None:
             self._poll = self.after(100, self._drain)
             return
+        _kind, found, files, error = message
         self._poll = None
         self._scan = None
         self._set_scanning(False)
@@ -221,6 +238,22 @@ class TagImport(tk.Toplevel):
                                     "digiKam, check that tags are written "
                                     "into the files themselves."))
 
+    def _show_progress(self, stage, done, total):
+        if stage == "walk":
+            self.lbl_progress.configure(text=_("Looking through the "
+                                               "folders…"))
+            return
+        if total <= 0:
+            self.lbl_progress.configure(text="")
+            return
+        if str(self.progress.cget("mode")) != "determinate":
+            self.progress.stop()
+            self.progress.configure(mode="determinate", maximum=total)
+        self.progress.configure(value=done)
+        self.lbl_progress.configure(
+            text=_("{done} of {total} files read").format(done=done,
+                                                          total=total))
+
     def _set_scanning(self, busy):
         state = "disabled" if busy else "normal"
         self.btn_folder.configure(state=state)
@@ -229,11 +262,15 @@ class TagImport(tk.Toplevel):
         self.btn_scan.configure(text=_("Stop") if busy
                                 else _("Look for tags"))
         if busy:
+            self.progress.configure(mode="indeterminate", value=0)
             self.progress.pack(side="left", padx=(12, 0))
+            self.lbl_progress.pack(side="left", padx=(8, 0))
             self.progress.start(12)
         else:
             self.progress.stop()
             self.progress.pack_forget()
+            self.lbl_progress.pack_forget()
+            self.lbl_progress.configure(text="")
 
     # ---------- the list ----------
 
