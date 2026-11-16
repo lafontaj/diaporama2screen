@@ -115,8 +115,11 @@ Chaque ligne porte son rang, son nom de fichier, sa date et sa légende. Les
 boutons sous la liste déplacent la photographie choisie, ou trient tout par
 nom ou par date.
 
-**L'aperçu** — la photographie choisie dans la liste, et sous elle sa
-légende, modifiable.
+**L'aperçu** — la photographie choisie dans la liste, son nom et sa date,
+son chemin complet, et sa légende, modifiable. Le chemin est écrit en
+entier, sur plusieurs lignes au besoin : savoir de quel dossier vient une
+photographie est souvent ce qui tranche entre deux numérisations du même
+cliché.
 
 **Les réglages** — format, durées, musique, dossiers de sortie, et le
 bouton qui lance la production.

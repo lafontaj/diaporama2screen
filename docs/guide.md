@@ -111,8 +111,10 @@ line carries its rank, its file name, its date and its caption. The buttons
 under the list move the chosen photograph, or sort everything by name or by
 date.
 
-**The preview** — the photograph chosen in the list, with its caption below
-it, open for editing.
+**The preview** — the photograph chosen in the list, its name and date, its
+whole path, and its caption, open for editing. The path is written out in
+full, over several lines if need be: which folder a photograph came from is
+often what tells two scans of the same picture apart.
 
 **The settings** — format, timings, music, output folders, and the button
 that starts the production.

@@ -7,7 +7,7 @@ The list on the left is BOTH the selection and the order of the slideshow:
 keeping two separate lists would mean keeping them in step, which is exactly
 the kind of bookkeeping that goes wrong.
 """
-__version__ = "1.5.0"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.6.0"   # version propre à CE fichier ; incrémentée quand il change
 
 import os
 import tkinter as tk
@@ -237,8 +237,17 @@ class App(tk.Tk):
         self.lbl_info = ttk.Label(frame, anchor="w", padding=(2, 6, 2, 0))
         self.lbl_info.grid(row=1, column=0, sticky="ew")
 
+        # The whole path, wrapped rather than cut: knowing which of two
+        # folders a photograph came from is the point, and a path shortened
+        # in the middle hides exactly that. Grey and small, so it informs
+        # without competing with the caption below.
+        self.lbl_path = ttk.Label(frame, anchor="w", justify="left",
+                                  foreground="#777777",
+                                  padding=(2, 1, 2, 0))
+        self.lbl_path.grid(row=2, column=0, sticky="ew")
+
         caption_box = ttk.LabelFrame(frame, text=_("Caption"), padding=(8, 6))
-        caption_box.grid(row=2, column=0, sticky="ew", pady=(6, 0))
+        caption_box.grid(row=3, column=0, sticky="ew", pady=(6, 0))
         caption_box.columnconfigure(0, weight=1)
 
         self.var_caption = tk.StringVar()
@@ -349,6 +358,10 @@ class App(tk.Tk):
         self._schedule_preview()
 
     def _on_preview_resize(self, event=None):
+        # The wrap width has to follow the panel, otherwise a long path
+        # either pushes the window wider or disappears off its edge.
+        if event is not None and event.width > 40:
+            self.lbl_path.configure(wraplength=event.width - 12)
         self._schedule_preview()
 
     def _schedule_preview(self):
@@ -364,12 +377,14 @@ class App(tk.Tk):
             self.preview_label.configure(
                 image="", text=_("Select a photo to see it here."))
             self.lbl_info.configure(text="")
+            self.lbl_path.configure(text="")
             return
         if not photo.exists:
             self._shown_image = None
             self.preview_label.configure(image="",
                                          text=_("This file no longer exists."))
-            self.lbl_info.configure(text=photo.path)
+            self.lbl_info.configure(text=photo.name)
+            self.lbl_path.configure(text=photo.path)
             return
         width = max(64, self.preview_holder.winfo_width() - 16)
         height = max(64, self.preview_holder.winfo_height() - 16)
@@ -386,6 +401,7 @@ class App(tk.Tk):
         date = photo.date or _("no date")
         self.lbl_info.configure(text="{name}   ·   {date}".format(
             name=photo.name, date=date))
+        self.lbl_path.configure(text=photo.path)
 
     # ------------------------------------------------------------------
     # captions
@@ -571,9 +587,15 @@ class App(tk.Tk):
             ui_dialogs.error(self, deps.report(deps.FOR_CAPTIONS))
             return
 
-        paths, replace = ui_import.choose(
-            self, self._last_folder(), title=_("Import from a tag"))
-        if not paths:
+        # Not _last_folder(): that one follows the last photograph added,
+        # which is a leaf deep in the tree — a poor place to start a sweep
+        # for tags. The sweep remembers its own folder, and falls back to
+        # the pictures folder the first time.
+        start = (i18n.read_setting("last_tag_folder", "")
+                 or paths.pictures_dir())
+        chosen, replace = ui_import.choose(
+            self, start, title=_("Import from a tag"))
+        if not chosen:
             return
 
         if replace and not self._confirm_discard():
@@ -585,10 +607,9 @@ class App(tk.Tk):
             if replace:
                 self.proj = project_mod.Project()
                 self.settings_panel.load_from_project()
-            added, skipped = self.proj.add_paths(paths)
+            added, skipped = self.proj.add_paths(chosen)
         finally:
             self.configure(cursor="")
-        i18n.write_setting("last_photo_folder", os.path.dirname(paths[0]))
         self.refresh_list()
         self.update_title()
         self._report_added(added, skipped)

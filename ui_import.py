@@ -13,7 +13,7 @@ list has a filter that narrows it as it is typed, and ticks are kept in a
 set of their own so that narrowing the list never loses a choice made
 before — the same arrangement as the thumbnail board, for the same reason.
 """
-__version__ = "1.1.0"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.2.0"   # version propre à CE fichier ; incrémentée quand il change
 
 import os
 import queue
@@ -22,6 +22,7 @@ import tkinter as tk
 import unicodedata
 from tkinter import ttk
 
+import i18n
 import tags as tags_mod
 import ui_dialogs
 
@@ -232,6 +233,11 @@ class TagImport(tk.Toplevel):
             return
         self._tags = found
         self._files = files
+        # The folder actually swept is what the next import should start
+        # from — not the folder of the last photograph added, which is a
+        # leaf deep in the tree. Remembered even when the import is then
+        # cancelled: the sweep itself is what cost something.
+        i18n.write_setting("last_tag_folder", self._folder)
         self._refill()
         if not found:
             ui_dialogs.info(self, _("No tag was found in that folder. In "

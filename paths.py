@@ -6,9 +6,10 @@ Single place that resolves every location the application writes to, so no
 other module ever builds a path by hand. Follows the XDG base directory
 specification, with an environment override for testing.
 """
-__version__ = "1.1.2"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.2.0"   # version propre à CE fichier ; incrémentée quand il change
 
 import os
+import subprocess
 
 APP_NAME = "diaporama2screen"
 
@@ -50,6 +51,27 @@ def output_dir():
 def projects_dir():
     """Where project files (.d2s.json) are kept by default."""
     return os.path.join(output_dir(), "projets")
+
+
+def pictures_dir():
+    """The user's pictures folder, whatever it is called in their language.
+
+    Asked of the desktop rather than guessed, so that "Images" on a French
+    session and "Pictures" on an English one both work; the guesses are only
+    there for a system without xdg-user-dir."""
+    try:
+        out = subprocess.run(["xdg-user-dir", "PICTURES"],
+                             capture_output=True, text=True, timeout=5)
+        path = out.stdout.strip()
+        if path and os.path.isdir(path):
+            return path
+    except (OSError, subprocess.SubprocessError):
+        pass
+    for name in ("Images", "Pictures", "Bilder", "Imágenes"):
+        candidate = os.path.expanduser("~/" + name)
+        if os.path.isdir(candidate):
+            return candidate
+    return os.path.expanduser("~")
 
 
 def ensure(path):
