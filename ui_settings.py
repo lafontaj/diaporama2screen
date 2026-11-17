@@ -5,7 +5,7 @@ ui_settings.py — The production panel: format, timings and music.
 Kept apart from the main window so that neither file becomes the kind of
 monolith that is slow to read and slow to load.
 """
-__version__ = "1.2.0"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.3.0"   # version propre à CE fichier ; incrémentée quand il change
 
 import os
 import tkinter as tk
@@ -107,6 +107,13 @@ class SettingsPanel(ttk.Frame):
         self.lbl_music = ttk.Label(music, text="")
         self.lbl_music.grid(row=1, column=0, columnspan=3, sticky="w",
                             pady=(4, 0))
+
+        self.var_normalise = tk.BooleanVar(value=True)
+        ttk.Checkbutton(music, variable=self.var_normalise,
+                        command=self._on_change,
+                        text=_("Even out the level between pieces")).grid(
+                            row=2, column=0, columnspan=3, sticky="w",
+                            pady=(2, 0))
 
         output = ttk.LabelFrame(self, text=_("Where the results are written"),
                                 padding=(6, 4))
@@ -289,6 +296,7 @@ class SettingsPanel(ttk.Frame):
         self.var_seconds.set(self._clean(s.get("seconds_per_photo", 10)))
         self.var_crossfade.set(self._clean(s.get("crossfade", 2)))
         self.var_black.set(self._clean(s.get("black_fade", 2)))
+        self.var_normalise.set(bool(s.get("normalise_music", True)))
         self._loading = False
         self.refresh_music()
         self.refresh_outputs()
@@ -317,6 +325,7 @@ class SettingsPanel(ttk.Frame):
                          self._number(self.var_seconds, 10))
         proj.set_setting("crossfade", self._number(self.var_crossfade, 2))
         proj.set_setting("black_fade", self._number(self.var_black, 2))
+        proj.set_setting("normalise_music", bool(self.var_normalise.get()))
         self.refresh_estimate()
         self.app.update_title()
 

@@ -37,6 +37,14 @@ msgstr "Le dossier du bureau est introuvable."
 msgid "the file still holds its old caption"
 msgstr "le fichier porte encore son ancienne légende"
 
+msgid "Measuring {n} piece of music"
+msgid_plural "Measuring {n} pieces of music"
+msgstr[0] "Mesure de {n} pièce musicale"
+msgstr[1] "Mesure de {n} pièces musicales"
+
+msgid "{gain} dB applied to {name}"
+msgstr "{gain} dB appliqués à {name}"
+
 msgid "No DejaVu font found; captions will use the ImageMagick default."
 msgstr "Aucune police DejaVu trouvée ; les légendes utiliseront la police par défaut d'ImageMagick."
 
@@ -599,6 +607,9 @@ msgstr "Ajouter un dossier…"
 
 msgid "Remove"
 msgstr "Retirer"
+
+msgid "Even out the level between pieces"
+msgstr "Égaliser le niveau entre les pièces"
 
 msgid "Where the results are written"
 msgstr "Où les résultats sont écrits"

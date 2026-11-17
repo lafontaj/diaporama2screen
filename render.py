@@ -23,8 +23,9 @@ as they were because they are known to work:
     French locale writes 4,000 and a comma separates arguments in an FFmpeg
     filter.
 """
-__version__ = "1.1.0"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.2.0"   # version propre à CE fichier ; incrémentée quand il change
 
+import json
 import os
 import re
 import shutil
@@ -51,6 +52,15 @@ FPS = 30
 JPEG_QUALITY = 92
 AUDIO_FADE_IN = 2.0
 AUDIO_FADE_OUT = 4.0
+
+# Evening out the music. The target is ReplayGain's own reference, so a
+# library already tagged by other tools lands where it expects to. The
+# ceiling leaves a decibel of headroom before the encoder, and the limit on
+# the gain keeps a nearly silent recording from being blown up into noise.
+MUSIC_TARGET_LUFS = -18.0
+MUSIC_PEAK_CEILING = -1.0
+MUSIC_MAX_GAIN = 20.0
+MUSIC_SILENCE = -70.0
 
 _TIME_RE = re.compile(r"out_time_ms=(\d+)")
 
@@ -157,6 +167,76 @@ class Renderer:
                 self._process = None
         return code
 
+    def _capture_command(self, args):
+        """Run a program and return (code, its output) without logging it.
+
+        _run_command reports every line it reads, which is right for ffmpeg
+        working but wrong for ffmpeg measuring: the measurement is a block
+        of JSON nobody needs to read."""
+        self._check()
+        try:
+            process = subprocess.Popen(args, stdout=subprocess.PIPE,
+                                       stderr=subprocess.STDOUT, text=True)
+        except OSError as exc:
+            self.report("log", str(exc))
+            return 1, ""
+        with self._lock:
+            self._process = process
+        try:
+            out, _err = process.communicate()
+        finally:
+            with self._lock:
+                self._process = None
+        return process.returncode, out or ""
+
+    # ---------- the music, measured ----------
+
+    def _music_gain(self, path):
+        """How many decibels this piece needs to sit at the common level.
+
+        Measured rather than read from the file's ReplayGain tags: ffmpeg
+        applies those for FLAC but not for every format, and a library that
+        mixes formats would come out half corrected, which is worse than
+        not corrected at all because it cannot be predicted. Measuring
+        works whatever the format and whatever the tagging."""
+        code, text = self._capture_command(
+            ["ffmpeg", "-hide_banner", "-nostats", "-i", path,
+             "-af", "loudnorm=print_format=json", "-f", "null", "-"])
+        if code != 0:
+            return 0.0
+        start, end = text.rfind("{"), text.rfind("}")
+        if start < 0 or end < start:
+            return 0.0
+        try:
+            data = json.loads(text[start:end + 1])
+            measured = float(data["input_i"])
+            peak = float(data["input_tp"])
+        except (ValueError, KeyError, TypeError):
+            return 0.0
+        if measured <= MUSIC_SILENCE:
+            return 0.0           # silence: there is nothing to lift
+        gain = MUSIC_TARGET_LUFS - measured
+        if peak == peak and abs(peak) != float("inf"):   # not NaN, not inf
+            gain = min(gain, MUSIC_PEAK_CEILING - peak)
+        return max(-MUSIC_MAX_GAIN, min(MUSIC_MAX_GAIN, gain))
+
+    def _music_gains(self, files):
+        self.report("step", ngettext("Measuring {n} piece of music",
+                                     "Measuring {n} pieces of music",
+                                     len(files)).format(n=len(files)))
+        self.report("progress", (0, len(files)))
+        gains = []
+        for index, path in enumerate(files):
+            self._check()
+            gain = self._music_gain(path)
+            gains.append(gain)
+            if abs(gain) >= 0.1:
+                self.report("log", _("{gain} dB applied to {name}").format(
+                    gain="{:+.1f}".format(gain),
+                    name=os.path.basename(path)))
+            self.report("progress", (index + 1, len(files)))
+        return gains
+
     # ---------- step one: the images ----------
 
     def build_images(self, tmp):
@@ -258,8 +338,12 @@ class Renderer:
                  if os.path.isfile(f)]
         if not files:
             return None
-        if len(files) == 1:
-            return files[0]
+
+        even = bool(self.proj.settings.get("normalise_music", True))
+        gains = self._music_gains(files) if even else [0.0] * len(files)
+        if not even and len(files) == 1:
+            return files[0]          # nothing to join, nothing to even out
+
         self.report("step", ngettext("Joining {n} piece of music",
                                      "Joining {n} pieces of music",
                                      len(files)).format(
@@ -268,9 +352,11 @@ class Renderer:
         parts = []
         for index, path in enumerate(files):
             args += ["-i", path]
-            parts.append("[{}:a]aresample=48000,"
+            gain = ("volume={}dB,".format(number(gains[index]))
+                    if abs(gains[index]) >= 0.01 else "")
+            parts.append("[{}:a]{}aresample=48000,"
                          "aformat=sample_fmts=s16:channel_layouts=stereo"
-                         "[p{}];".format(index, index))
+                         "[p{}];".format(index, gain, index))
         graph = "".join(parts) + "".join(
             "[p{}]".format(i) for i in range(len(files)))
         graph += "concat=n={}:v=0:a=1[bs]".format(len(files))

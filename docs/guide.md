@@ -335,6 +335,21 @@ The formats recognised are `.flac`, `.mp3`, `.m4a`, `.ogg`, `.opus` and
 
 With no music, the video is silent.
 
+**Even out the level between pieces** is ticked by default. Before the
+pieces are joined, each one is measured and given the gain that brings it
+to -18 LUFS — ReplayGain's own reference — without ever going past a peak
+of -1 dBTP. Two pieces ten decibels apart come out level.
+
+The level is **measured** rather than read from the files' ReplayGain tags.
+ffmpeg applies those for FLAC but not for every format: a list mixing FLAC
+and MP3 would come out half corrected, which is worse than not corrected at
+all because it cannot be predicted. Measuring costs one reading pass per
+piece, a few seconds, once per production — and works whatever the format
+and however carefully the library was tagged.
+
+A single piece is measured too: there is nothing to even out between
+pieces, but the level stays the same from one montage to the next.
+
 ### Where the results are written
 
 This is the question one always asks too late, so both paths are shown

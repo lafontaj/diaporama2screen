@@ -12,7 +12,7 @@ an OVERRIDE for a photo: a text that is used for the slideshow without being
 written back into the archive. That is the safe default; writing into the
 originals is a separate, explicit action.
 """
-__version__ = "1.2.0"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.3.0"   # version propre à CE fichier ; incrémentée quand il change
 
 import json
 import os
@@ -34,6 +34,10 @@ DEFAULT_SETTINGS = {
     "crossfade": 2.0,
     "black_fade": 2.0,
     "music_files": [],
+    # Even out the level between pieces. On by default: a piece that
+    # starts far louder than the one before is the kind of accident a
+    # showing cannot take back.
+    "normalise_music": True,
     # Empty means "follow the project name"; a path set by the user is kept.
     "images_dir": "",
     "video_path": "",

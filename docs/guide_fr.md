@@ -352,6 +352,23 @@ de faire échouer la production.
 
 Sans musique, la vidéo est muette.
 
+**Égaliser le niveau entre les pièces** est coché par défaut. Avant
+l'assemblage, chaque pièce est mesurée et reçoit le gain qui l'amène à
+-18 LUFS — la référence de ReplayGain — sans jamais dépasser une pointe de
+-1 dBTP. Sur deux pièces écartées de 10 dB, l'écart tombe à zéro.
+
+Le niveau est **mesuré** plutôt que lu dans les étiquettes ReplayGain des
+fichiers. ffmpeg sait appliquer celles d'un FLAC, mais pas celles de tous
+les formats : une liste qui mélange FLAC et MP3 ressortirait à moitié
+corrigée, ce qui est pire que pas corrigée du tout, parce qu'imprévisible.
+Mesurer coûte une passe de lecture par pièce, quelques secondes, une seule
+fois par production — et fonctionne quel que soit le format et quel que
+soit le soin apporté au catalogage.
+
+La mesure s'applique aussi à une pièce seule : il n'y a alors rien à
+égaliser entre morceaux, mais le niveau absolu reste le même d'un montage
+à l'autre.
+
 ### Où les résultats sont écrits
 
 C'est la question qu'on se pose toujours trop tard, donc les deux chemins
