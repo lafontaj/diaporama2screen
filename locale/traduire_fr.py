@@ -10,7 +10,7 @@ rien ne casse.
 Les msgid sur plusieurs lignes sont recollés avant la recherche, de sorte que
 la table ci-dessous se lit comme du texte ordinaire.
 """
-__version__ = "1.2.3"
+__version__ = "1.3.0"
 
 import os
 import re
@@ -223,6 +223,40 @@ FR = {
     "{n} photo ticked in another folder is kept.":
         ("{n} photo cochée dans un autre dossier est conservée.",
          "{n} photos cochées dans d'autres dossiers sont conservées."),
+
+    # ui_rejects.py — photos retirées du diaporama
+    "Rejected photographs": "Photos rejetées",
+    "Rejected photographs…": "Photos rejetées…",
+    "{n} rejected": ("{n} rejetée", "{n} rejetées"),
+    "{n} rejected photograph": ("{n} photo rejetée", "{n} photos rejetées"),
+    "No photograph has been rejected.": "Aucune photo n'a été rejetée.",
+    "These photographs were taken out of the slideshow, so importing by tag "
+    "will not bring them back. The files themselves are untouched, and their "
+    "tags in digiKam are unchanged.":
+        "Ces photos ont été retirées du diaporama ; l'importation par "
+        "étiquette ne les ramènera donc pas. Les fichiers eux-mêmes ne sont "
+        "pas touchés, et leurs étiquettes dans digiKam restent intactes.",
+    "Folder": "Dossier",
+    "Forget the rejection": "Oublier le rejet",
+    "Forget them all": "Tout oublier",
+    "Forget": "Oublier",
+    "Choose the photographs whose rejection should be forgotten.":
+        "Choisissez les photos dont le rejet doit être oublié.",
+    "Forget the rejection of {n} photograph? It may then be imported by tag "
+    "again.":
+        ("Oublier le rejet de {n} photo ? Elle pourra de nouveau être "
+         "importée par étiquette.",
+         "Oublier le rejet de {n} photos ? Elles pourront de nouveau être "
+         "importées par étiquette."),
+    "{added} added. {refused} photograph was left out because it had been "
+    "taken out of this slideshow before. File ▸ Rejected photographs… "
+    "undoes that.":
+        ("Ajoutées : {added}. {refused} photo a été laissée de côté parce "
+         "qu'elle avait été retirée de ce diaporama. Fichier ▸ Photos "
+         "rejetées… permet de revenir là-dessus.",
+         "Ajoutées : {added}. {refused} photos ont été laissées de côté "
+         "parce qu'elles avaient été retirées de ce diaporama. Fichier ▸ "
+         "Photos rejetées… permet de revenir là-dessus."),
 
     # ui_import.py — importation par étiquette
     "Import from a tag": "Importer depuis une étiquette",

@@ -6,7 +6,7 @@ Single place that resolves every location the application writes to, so no
 other module ever builds a path by hand. Follows the XDG base directory
 specification, with an environment override for testing.
 """
-__version__ = "1.2.0"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.2.1"   # version propre à CE fichier ; incrémentée quand il change
 
 import os
 import subprocess
@@ -16,7 +16,7 @@ APP_NAME = "diaporama2screen"
 # Version of the APPLICATION as a whole — not of this file, which carries its
 # own __version__ above like every other module. This is the number a bug
 # report should quote, so it lives in the one module every other one imports.
-APP_VERSION = "1.1.0"
+APP_VERSION = "1.2.0"
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
 
 

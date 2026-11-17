@@ -270,6 +270,32 @@ sont conservées ; seules celles qui venaient des fichiers sont rafraîchies.
 
 ---
 
+### Retirer une photo, et le rejet
+
+**Retirer du diaporama** ne touche jamais au fichier. Mais il retient que
+cette photo n'est pas voulue **dans ce diaporama** — sans quoi la
+réimportation par étiquette la ramènerait à chaque fois, puisque son
+étiquette, elle, reste posée dans digiKam.
+
+C'est volontairement une marque propre au diaporama et non une
+modification de la photo : retirer l'étiquette dans digiKam serait presque
+toujours le contraire de ce qu'on veut, et le rejet d'un montage n'a pas à
+suivre la photo dans le catalogue.
+
+**Fichier ▸ Photos rejetées…** montre la liste et permet d'oublier un rejet,
+une photo à la fois ou d'un coup. Une photo ajoutée à la main par
+**Ajouter des photos…** est reprise sans discuter et son rejet est oublié :
+la choisir soi-même dit assez clairement qu'on la veut.
+
+Les rejets vivent dans le fichier de projet, à côté de la liste des photos.
+Un autre diaporama, pour un autre événement, repart donc de zéro.
+
+ℹ Les corbeilles sont écartées du balayage : une photo supprimée dans
+digiKam part dans un dossier `.dtrash`, et le bureau utilise `.Trash-1000`
+ou `~/.local/share/Trash`. Dans les trois cas le fichier existe encore avec
+ses étiquettes, et un balayage qui y descendrait proposerait des photos
+qu'on vient de jeter.
+
 ## 3. Mettre les photographies en ordre
 
 L'ordre de la liste est l'ordre du diaporama.

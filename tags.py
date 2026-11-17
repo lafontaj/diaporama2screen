@@ -178,7 +178,15 @@ class TagScan:
     def _walk(self):
         """Every image under the folder, with its size and modification
         time. On NFS the share returns those attributes along with the
-        directory listing, so this costs far less than opening each file."""
+        directory listing, so this costs far less than opening each file.
+
+        Hidden directories are left out, as they are everywhere else in the
+        application. That is what keeps deleted photographs from coming
+        back: digiKam moves them to a `.dtrash` folder inside the album
+        root, and the desktop moves them to `.Trash-1000` or to
+        `~/.local/share/Trash`. All three keep the file, and its tags, in
+        place — so a sweep that walked into them would offer photographs
+        their owner had thrown away."""
         found = {}
         stack = [self.folder]
         while stack:
@@ -192,7 +200,7 @@ class TagScan:
             for entry in entries:
                 try:
                     if entry.is_dir(follow_symlinks=False):
-                        if self.recursive:
+                        if self.recursive and not entry.name.startswith("."):
                             stack.append(entry.path)
                         continue
                     if not entry.is_file(follow_symlinks=False):

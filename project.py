@@ -12,7 +12,7 @@ an OVERRIDE for a photo: a text that is used for the slideshow without being
 written back into the archive. That is the safe default; writing into the
 originals is a separate, explicit action.
 """
-__version__ = "1.1.0"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.2.0"   # version propre à CE fichier ; incrémentée quand il change
 
 import json
 import os
@@ -89,6 +89,13 @@ class Project:
         self.settings = dict(DEFAULT_SETTINGS)
         self.file_path = None
         self.dirty = False
+        # Photographs taken out of THIS slideshow. Kept so that importing
+        # by tag again does not bring back what was deliberately dropped —
+        # which would otherwise be unavoidable, since the tag stays on the
+        # photograph and removing it in digiKam is usually the last thing
+        # anyone wants. Nothing is written to the files: a rejection
+        # belongs to the slideshow, not to the photograph.
+        self.rejected = set()
 
     # ---------- naming ----------
 
@@ -106,12 +113,20 @@ class Project:
     def _known_paths(self):
         return {p.path for p in self.photos}
 
-    def add_paths(self, file_paths):
+    def add_paths(self, file_paths, respect_rejections=False):
         """Add files, skipping duplicates and non-images.
-        Returns (added, skipped)."""
+
+        `respect_rejections` is for adding that happens on its own — an
+        import by tag. Choosing a photograph by hand says plainly that it
+        is wanted, so it is added and its rejection forgotten.
+
+        Returns (added, skipped, refused), `refused` counting the files
+        left out because they had been rejected."""
         known = self._known_paths()
         fresh = []
         skipped = 0
+        refused = 0
+        unrejected = []
         for p in file_paths:
             full = os.path.abspath(p)
             if not os.path.isfile(full):
@@ -123,24 +138,60 @@ class Project:
             if full in known:
                 skipped += 1
                 continue
+            if full in self.rejected:
+                if respect_rejections:
+                    refused += 1
+                    continue
+                unrejected.append(full)
             known.add(full)
             fresh.append(Photo(full))
+        for full in unrejected:
+            self.rejected.discard(full)
         if fresh:
             self.photos.extend(fresh)
             self.refresh_metadata(fresh)
             self.dirty = True
-        return len(fresh), skipped
+        elif unrejected:
+            self.dirty = True
+        return len(fresh), skipped, refused
 
     def add_folder(self, folder, recursive=True):
         """Add every image of a folder, in alphabetical order of full path."""
         return self.add_paths(scan_folder(folder, recursive))
 
     def remove(self, indexes):
-        """Remove photos by index. The files on disk are never touched."""
+        """Remove photos by index and remember that they were removed.
+
+        The files on disk are never touched; only this slideshow learns
+        that these photographs are not wanted in it."""
         for i in sorted(indexes, reverse=True):
             if 0 <= i < len(self.photos):
+                self.rejected.add(self.photos[i].path)
                 del self.photos[i]
                 self.dirty = True
+
+    def rejected_photos(self):
+        """The rejected paths, sorted, for showing to someone."""
+        return sorted(self.rejected)
+
+    def unreject(self, file_paths):
+        """Forget the rejection of these paths. Returns how many were
+        actually rejected before."""
+        count = 0
+        for path in file_paths:
+            if path in self.rejected:
+                self.rejected.discard(path)
+                count += 1
+        if count:
+            self.dirty = True
+        return count
+
+    def clear_rejections(self):
+        count = len(self.rejected)
+        if count:
+            self.rejected.clear()
+            self.dirty = True
+        return count
 
     # ---------- ordering ----------
 
@@ -287,6 +338,7 @@ class Project:
             "version": 1,
             "settings": self.settings,
             "photos": [p.to_dict() for p in self.photos],
+            "rejected": self.rejected_photos(),
         }
 
     def save(self, file_path=None):
@@ -323,6 +375,8 @@ class Project:
         proj.photos = [Photo.from_dict(d)
                        for d in data.get("photos", [])
                        if isinstance(d, dict) and d.get("path")]
+        proj.rejected = {p for p in data.get("rejected", [])
+                         if isinstance(p, str) and p}
         proj.file_path = file_path
         proj.dirty = False
         proj.refresh_metadata()

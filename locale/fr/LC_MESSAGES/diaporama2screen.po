@@ -201,6 +201,9 @@ msgstr "Enregistrer sous…"
 msgid "Import from a tag…"
 msgstr "Importer depuis une étiquette…"
 
+msgid "Rejected photographs…"
+msgstr "Photos rejetées…"
+
 msgid "Quit"
 msgstr "Quitter"
 
@@ -303,6 +306,11 @@ msgid_plural "{n} missing files"
 msgstr[0] "{n} fichier manquant"
 msgstr[1] "{n} fichiers manquants"
 
+msgid "{n} rejected"
+msgid_plural "{n} rejected"
+msgstr[0] "{n} rejetée"
+msgstr[1] "{n} rejetées"
+
 msgid "duration {d}"
 msgstr "durée {d}"
 
@@ -370,8 +378,16 @@ msgstr[1] "{n} légendes écrites dans les fichiers."
 msgid "Choose the photos to add"
 msgstr "Choisir les photos à ajouter"
 
+msgid "{added} added. {refused} photograph was left out because it had been taken out of this slideshow before. File ▸ Rejected photographs… undoes that."
+msgid_plural "{added} added. {refused} photographs were left out because they had been taken out of this slideshow before. File ▸ Rejected photographs… undoes that."
+msgstr[0] "Ajoutées : {added}. {refused} photo a été laissée de côté parce qu'elle avait été retirée de ce diaporama. Fichier ▸ Photos rejetées… permet de revenir là-dessus."
+msgstr[1] "Ajoutées : {added}. {refused} photos ont été laissées de côté parce qu'elles avaient été retirées de ce diaporama. Fichier ▸ Photos rejetées… permet de revenir là-dessus."
+
 msgid "Nothing added: those photos are already in the slideshow, or are not images."
 msgstr "Rien d'ajouté : ces photos sont déjà dans le diaporama, ou ne sont pas des images."
+
+msgid "Rejected photographs"
+msgstr "Photos rejetées"
 
 msgid "None of these photos can be read."
 msgstr "Aucune de ces photos n'est lisible."
@@ -487,6 +503,40 @@ msgid_plural "{n} photos ticked in other folders are kept."
 msgstr[0] "{n} photo cochée dans un autre dossier est conservée."
 msgstr[1] "{n} photos cochées dans d'autres dossiers sont conservées."
 
+msgid "These photographs were taken out of the slideshow, so importing by tag will not bring them back. The files themselves are untouched, and their tags in digiKam are unchanged."
+msgstr "Ces photos ont été retirées du diaporama ; l'importation par étiquette ne les ramènera donc pas. Les fichiers eux-mêmes ne sont pas touchés, et leurs étiquettes dans digiKam restent intactes."
+
+msgid "Folder"
+msgstr "Dossier"
+
+msgid "Close"
+msgstr "Fermer"
+
+msgid "Forget them all"
+msgstr "Tout oublier"
+
+msgid "Forget the rejection"
+msgstr "Oublier le rejet"
+
+msgid "{n} rejected photograph"
+msgid_plural "{n} rejected photographs"
+msgstr[0] "{n} photo rejetée"
+msgstr[1] "{n} photos rejetées"
+
+msgid "No photograph has been rejected."
+msgstr "Aucune photo n'a été rejetée."
+
+msgid "Choose the photographs whose rejection should be forgotten."
+msgstr "Choisissez les photos dont le rejet doit être oublié."
+
+msgid "Forget the rejection of {n} photograph? It may then be imported by tag again."
+msgid_plural "Forget the rejection of {n} photographs? They may then be imported by tag again."
+msgstr[0] "Oublier le rejet de {n} photo ? Elle pourra de nouveau être importée par étiquette."
+msgstr[1] "Oublier le rejet de {n} photos ? Elles pourront de nouveau être importées par étiquette."
+
+msgid "Forget"
+msgstr "Oublier"
+
 msgid "Producing the slideshow"
 msgstr "Production du diaporama"
 
@@ -498,9 +548,6 @@ msgstr "Ouvrir le dossier"
 
 msgid "{done} of {total}"
 msgstr "{done} sur {total}"
-
-msgid "Close"
-msgstr "Fermer"
 
 msgid "Finished"
 msgstr "Terminé"

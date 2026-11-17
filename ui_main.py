@@ -7,7 +7,7 @@ The list on the left is BOTH the selection and the order of the slideshow:
 keeping two separate lists would mean keeping them in step, which is exactly
 the kind of bookkeeping that goes wrong.
 """
-__version__ = "1.7.1"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.8.0"   # version propre à CE fichier ; incrémentée quand il change
 
 import os
 import subprocess
@@ -23,6 +23,7 @@ import preview as preview_mod
 import project as project_mod
 import ui_dialogs
 import ui_import
+import ui_rejects
 import ui_picker
 import ui_render
 from ui_settings import SettingsPanel, format_duration
@@ -99,6 +100,8 @@ class App(tk.Tk):
         file_menu.add_separator()
         file_menu.add_command(label=_("Import from a tag…"),
                               command=later(self.on_import_tag))
+        file_menu.add_command(label=_("Rejected photographs…"),
+                              command=later(self.on_rejected))
         file_menu.add_separator()
         file_menu.add_command(label=_("Quit"), command=later(self.on_quit))
         bar.add_cascade(label=_("File"), menu=file_menu)
@@ -363,6 +366,10 @@ class App(tk.Tk):
         if gone:
             bits.append(ngettext("{n} missing file", "{n} missing files",
                                  gone).format(n=gone))
+        refused = len(self.proj.rejected)
+        if refused:
+            bits.append(ngettext("{n} rejected", "{n} rejected",
+                                 refused).format(n=refused))
         bits.append(_("duration {d}").format(
             d=format_duration(self.proj.duration())))
         self.status.configure(text="   ·   ".join(bits))
@@ -641,14 +648,26 @@ class App(tk.Tk):
         self.configure(cursor="watch")
         self.update_idletasks()
         try:
-            added, skipped = self.proj.add_paths(chosen)
+            added, skipped, refused = self.proj.add_paths(chosen)
         finally:
             self.configure(cursor="")
         self.refresh_list()
         self.update_title()
-        self._report_added(added, skipped)
+        self._report_added(added, skipped, refused)
 
-    def _report_added(self, added, skipped):
+    def _report_added(self, added, skipped, refused=0):
+        if refused:
+            ui_dialogs.info(
+                self,
+                ngettext(
+                    "{added} added. {refused} photograph was left out "
+                    "because it had been taken out of this slideshow "
+                    "before. File ▸ Rejected photographs… undoes that.",
+                    "{added} added. {refused} photographs were left out "
+                    "because they had been taken out of this slideshow "
+                    "before. File ▸ Rejected photographs… undoes that.",
+                    refused).format(added=added, refused=refused))
+            return
         if added == 0 and skipped:
             ui_dialogs.info(
                 self,
@@ -682,12 +701,20 @@ class App(tk.Tk):
             if replace:
                 self.proj = project_mod.Project()
                 self.settings_panel.load_from_project()
-            added, skipped = self.proj.add_paths(chosen)
+            added, skipped, refused = self.proj.add_paths(
+                chosen, respect_rejections=True)
         finally:
             self.configure(cursor="")
         self.refresh_list()
         self.update_title()
-        self._report_added(added, skipped)
+        self._report_added(added, skipped, refused)
+
+    def on_rejected(self):
+        """Show what was taken out of the slideshow, and let it back in."""
+        if ui_rejects.show(self, self.proj,
+                           title=_("Rejected photographs")):
+            self.update_title()
+            self.refresh_status()
 
     def on_remove(self):
         indexes = self.selected_indexes()

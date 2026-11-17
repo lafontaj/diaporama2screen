@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: diaporama2screen 1.1.0\n"
+"Project-Id-Version: diaporama2screen 1.2.0\n"
 "Report-Msgid-Bugs-To: jean\n"
-"POT-Creation-Date: 2026-11-16 16:07-0500\n"
+"POT-Creation-Date: 2026-11-17 15:12-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -129,7 +129,7 @@ msgstr ""
 msgid "The file “{f}” already exists. Replace it?"
 msgstr ""
 
-#: ui_dialogs.py:287 ui_import.py:364 ui_main.py:761
+#: ui_dialogs.py:287 ui_import.py:364 ui_main.py:788
 msgid "Replace"
 msgstr ""
 
@@ -146,7 +146,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: ui_dialogs.py:485 ui_main.py:95
+#: ui_dialogs.py:485 ui_main.py:96
 msgid "Save"
 msgstr ""
 
@@ -154,7 +154,7 @@ msgstr ""
 msgid "Discard"
 msgstr ""
 
-#: ui_import.py:57 ui_main.py:672
+#: ui_import.py:57 ui_main.py:691
 msgid "Import from a tag"
 msgstr ""
 
@@ -252,7 +252,7 @@ msgid_plural "{n} tags ticked"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ui_import.py:339 ui_main.py:356
+#: ui_import.py:339 ui_main.py:359
 #, python-brace-format
 msgid "{n} photo"
 msgid_plural "{n} photos"
@@ -276,209 +276,220 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: ui_main.py:90
+#: ui_main.py:91
 msgid "New project"
 msgstr ""
 
-#: ui_main.py:92
+#: ui_main.py:93
 msgid "Open…"
 msgstr ""
 
-#: ui_main.py:97
+#: ui_main.py:98
 msgid "Save as…"
 msgstr ""
 
-#: ui_main.py:100
+#: ui_main.py:101
 msgid "Import from a tag…"
 msgstr ""
 
 #: ui_main.py:103
+msgid "Rejected photographs…"
+msgstr ""
+
+#: ui_main.py:106
 msgid "Quit"
 msgstr ""
 
-#: ui_main.py:104 ui_main.py:186
+#: ui_main.py:107 ui_main.py:189 ui_rejects.py:71
 msgid "File"
 msgstr ""
 
-#: ui_main.py:108
+#: ui_main.py:111
 msgid "System language"
 msgstr ""
 
-#: ui_main.py:114
+#: ui_main.py:117
 msgid "Language"
 msgstr ""
 
-#: ui_main.py:117
+#: ui_main.py:120
 msgid "Install a launcher…"
 msgstr ""
 
-#: ui_main.py:119
+#: ui_main.py:122
 msgid "Remove the launcher"
 msgstr ""
 
-#: ui_main.py:122
+#: ui_main.py:125
 msgid "Required programs"
 msgstr ""
 
-#: ui_main.py:124
+#: ui_main.py:127
 msgid "Tools"
 msgstr ""
 
-#: ui_main.py:127
+#: ui_main.py:130
 msgid "About"
 msgstr ""
 
-#: ui_main.py:128
+#: ui_main.py:131
 msgid "Help"
 msgstr ""
 
-#: ui_main.py:153
+#: ui_main.py:156
 msgid "Add photos…"
 msgstr ""
 
-#: ui_main.py:155
+#: ui_main.py:158
 msgid "Remove from the slideshow"
 msgstr ""
 
-#: ui_main.py:157
+#: ui_main.py:160
 msgid "Re-read the captions"
 msgstr ""
 
-#: ui_main.py:160
+#: ui_main.py:163
 msgid "Write captions into the files…"
 msgstr ""
 
-#: ui_main.py:187 ui_main.py:272
+#: ui_main.py:190 ui_main.py:275
 msgid "Caption"
 msgstr ""
 
-#: ui_main.py:208
+#: ui_main.py:211
 msgid "Top"
 msgstr ""
 
-#: ui_main.py:209 ui_settings.py:100
+#: ui_main.py:212 ui_settings.py:100
 msgid "Up"
 msgstr ""
 
-#: ui_main.py:210 ui_settings.py:103
+#: ui_main.py:213 ui_settings.py:103
 msgid "Down"
 msgstr ""
 
-#: ui_main.py:211
+#: ui_main.py:214
 msgid "Bottom"
 msgstr ""
 
-#: ui_main.py:217
+#: ui_main.py:220
 msgid "Sort by name"
 msgstr ""
 
-#: ui_main.py:219
+#: ui_main.py:222
 msgid "Sort by date"
 msgstr ""
 
-#: ui_main.py:235 ui_main.py:401
+#: ui_main.py:238 ui_main.py:408
 msgid "Select a photo to see it here."
 msgstr ""
 
-#: ui_main.py:245 ui_main.py:262 ui_main.py:496
+#: ui_main.py:248 ui_main.py:265 ui_main.py:503
 msgid "Copy the path"
 msgstr ""
 
-#: ui_main.py:264
+#: ui_main.py:267
 msgid "Copy the file name"
 msgstr ""
 
-#: ui_main.py:267
+#: ui_main.py:270
 msgid "Open the containing folder"
 msgstr ""
 
-#: ui_main.py:283
+#: ui_main.py:286
 msgid "Restore the file's caption"
 msgstr ""
 
-#: ui_main.py:287
+#: ui_main.py:290
 msgid "Write into the file"
 msgstr ""
 
-#: ui_main.py:313
+#: ui_main.py:316
 msgid "file not found"
 msgstr ""
 
-#: ui_main.py:353
+#: ui_main.py:356
 msgid "Empty slideshow. Add a folder or some photos to begin."
 msgstr ""
 
-#: ui_main.py:357
+#: ui_main.py:360
 #, python-brace-format
 msgid "{n} with a caption"
 msgid_plural "{n} with captions"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ui_main.py:360
+#: ui_main.py:363
 #, python-brace-format
 msgid "{n} edited here only"
 msgid_plural "{n} edited here only"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ui_main.py:364
+#: ui_main.py:367
 #, python-brace-format
 msgid "{n} missing file"
 msgid_plural "{n} missing files"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ui_main.py:366
+#: ui_main.py:371
+#, python-brace-format
+msgid "{n} rejected"
+msgid_plural "{n} rejected"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ui_main.py:373
 #, python-brace-format
 msgid "duration {d}"
 msgstr ""
 
-#: ui_main.py:409
+#: ui_main.py:416
 msgid "This file no longer exists."
 msgstr ""
 
-#: ui_main.py:421
+#: ui_main.py:428
 #, python-brace-format
 msgid ""
 "This photo cannot be displayed:\n"
 "{reason}"
 msgstr ""
 
-#: ui_main.py:426
+#: ui_main.py:433
 msgid "no date"
 msgstr ""
 
-#: ui_main.py:453
+#: ui_main.py:460
 #, python-brace-format
 msgid "Edited here only. In the file: {text}"
 msgstr ""
 
-#: ui_main.py:454
+#: ui_main.py:461
 msgid "(none)"
 msgstr ""
 
-#: ui_main.py:456
+#: ui_main.py:463
 msgid "Read from the file."
 msgstr ""
 
-#: ui_main.py:459
+#: ui_main.py:466
 msgid "This photo has no caption in its metadata."
 msgstr ""
 
-#: ui_main.py:483
+#: ui_main.py:490
 msgid "Copied"
 msgstr ""
 
-#: ui_main.py:552
+#: ui_main.py:559
 msgid "This caption is already the one in the file. There is nothing to write."
 msgstr ""
 
-#: ui_main.py:560
+#: ui_main.py:567
 msgid "No caption has been edited here, so there is nothing to write."
 msgstr ""
 
-#: ui_main.py:570
+#: ui_main.py:577
 #, python-brace-format
 msgid ""
 "Write this caption into the photograph itself?\n"
@@ -487,79 +498,94 @@ msgid ""
 "{caption}"
 msgstr ""
 
-#: ui_main.py:572
+#: ui_main.py:579
 msgid "(empty)"
 msgstr ""
 
-#: ui_main.py:575
+#: ui_main.py:582
 #, python-brace-format
 msgid "Write {n} caption into the photograph itself?"
 msgid_plural "Write {n} captions into the photographs themselves?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ui_main.py:578
+#: ui_main.py:585
 msgid ""
 "The files are modified. digiKam will show the new captions once it re-reads "
 "them."
 msgstr ""
 
-#: ui_main.py:583
+#: ui_main.py:590
 msgid "Keep a copy of each original file (name_original)"
 msgstr ""
 
-#: ui_main.py:585
+#: ui_main.py:592
 msgid "Write into the files"
 msgstr ""
 
-#: ui_main.py:586
+#: ui_main.py:593
 msgid "Write"
 msgstr ""
 
-#: ui_main.py:613
+#: ui_main.py:620
 #, python-brace-format
 msgid ""
 "{ok} captions written, {bad} failed:\n"
 "{detail}"
 msgstr ""
 
-#: ui_main.py:617
+#: ui_main.py:624
 #, python-brace-format
 msgid "{n} caption written into the file."
 msgid_plural "{n} captions written into the files."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ui_main.py:637 ui_picker.py:67
+#: ui_main.py:644 ui_picker.py:67
 msgid "Choose the photos to add"
 msgstr ""
 
-#: ui_main.py:655
+#: ui_main.py:663
+#, python-brace-format
+msgid ""
+"{added} added. {refused} photograph was left out because it had been taken "
+"out of this slideshow before. File ▸ Rejected photographs… undoes that."
+msgid_plural ""
+"{added} added. {refused} photographs were left out because they had been "
+"taken out of this slideshow before. File ▸ Rejected photographs… undoes that."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ui_main.py:674
 msgid ""
 "Nothing added: those photos are already in the slideshow, or are not images."
 msgstr ""
 
-#: ui_main.py:742
+#: ui_main.py:715 ui_rejects.py:41
+msgid "Rejected photographs"
+msgstr ""
+
+#: ui_main.py:769
 msgid "None of these photos can be read."
 msgstr ""
 
-#: ui_main.py:749
+#: ui_main.py:776
 #, python-brace-format
 msgid "{n} file is missing and will be left out. Continue?"
 msgid_plural "{n} files are missing and will be left out. Continue?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ui_main.py:752
+#: ui_main.py:779
 msgid "Continue"
 msgstr ""
 
-#: ui_main.py:759
+#: ui_main.py:786
 #, python-brace-format
 msgid "“{f}” already exists. Replace it?"
 msgstr ""
 
-#: ui_main.py:767
+#: ui_main.py:794
 #, python-brace-format
 msgid ""
 "The laid-out images go to:\n"
@@ -571,99 +597,99 @@ msgid ""
 "Numbered images already in that folder are replaced."
 msgstr ""
 
-#: ui_main.py:771
+#: ui_main.py:798
 msgid "Produce"
 msgstr ""
 
-#: ui_main.py:771 ui_settings.py:142
+#: ui_main.py:798 ui_settings.py:142
 msgid "Produce the video"
 msgstr ""
 
-#: ui_main.py:783
+#: ui_main.py:810
 msgid "untitled"
 msgstr ""
 
-#: ui_main.py:795
+#: ui_main.py:822
 msgid "This project has unsaved changes. Save it now?"
 msgstr ""
 
-#: ui_main.py:819
+#: ui_main.py:846
 msgid "Open a project"
 msgstr ""
 
-#: ui_main.py:822 ui_main.py:859
+#: ui_main.py:849 ui_main.py:886
 msgid "Slideshow projects"
 msgstr ""
 
-#: ui_main.py:832
+#: ui_main.py:859
 #, python-brace-format
 msgid ""
 "This project could not be opened:\n"
 "{reason}"
 msgstr ""
 
-#: ui_main.py:853
+#: ui_main.py:880
 msgid "Save the project"
 msgstr ""
 
-#: ui_main.py:855
+#: ui_main.py:882
 msgid "slideshow"
 msgstr ""
 
-#: ui_main.py:870
+#: ui_main.py:897
 #, python-brace-format
 msgid ""
 "This project could not be saved:\n"
 "{reason}"
 msgstr ""
 
-#: ui_main.py:889
+#: ui_main.py:916
 msgid "The language will change the next time the application starts."
 msgstr ""
 
-#: ui_main.py:900
+#: ui_main.py:927
 msgid "Every required program is installed."
 msgstr ""
 
-#: ui_main.py:904
+#: ui_main.py:931
 msgid ""
 "Put diaporama2screen in the Graphics group of the menu, and a launcher on "
 "the desktop?"
 msgstr ""
 
-#: ui_main.py:907
+#: ui_main.py:934
 msgid "An existing launcher will be replaced."
 msgstr ""
 
-#: ui_main.py:909
+#: ui_main.py:936
 msgid "Also put a launcher on the desktop"
 msgstr ""
 
-#: ui_main.py:910
+#: ui_main.py:937
 msgid "Install a launcher"
 msgstr ""
 
-#: ui_main.py:911
+#: ui_main.py:938
 msgid "Install"
 msgstr ""
 
-#: ui_main.py:919
+#: ui_main.py:946
 msgid "Launcher installed:"
 msgstr ""
 
-#: ui_main.py:923
+#: ui_main.py:950
 msgid "The menu may take a moment to notice it."
 msgstr ""
 
-#: ui_main.py:929
+#: ui_main.py:956
 msgid "Launcher removed:"
 msgstr ""
 
-#: ui_main.py:932
+#: ui_main.py:959
 msgid "No launcher was installed."
 msgstr ""
 
-#: ui_main.py:939
+#: ui_main.py:966
 #, python-brace-format
 msgid ""
 "{app}\n"
@@ -715,6 +741,58 @@ msgid_plural "{n} photos ticked in other folders are kept."
 msgstr[0] ""
 msgstr[1] ""
 
+#: ui_rejects.py:62
+msgid ""
+"These photographs were taken out of the slideshow, so importing by tag will "
+"not bring them back. The files themselves are untouched, and their tags in "
+"digiKam are unchanged."
+msgstr ""
+
+#: ui_rejects.py:72
+msgid "Folder"
+msgstr ""
+
+#: ui_rejects.py:85 ui_render.py:139
+msgid "Close"
+msgstr ""
+
+#: ui_rejects.py:87
+msgid "Forget them all"
+msgstr ""
+
+#: ui_rejects.py:90
+msgid "Forget the rejection"
+msgstr ""
+
+#: ui_rejects.py:113
+#, python-brace-format
+msgid "{n} rejected photograph"
+msgid_plural "{n} rejected photographs"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ui_rejects.py:115
+msgid "No photograph has been rejected."
+msgstr ""
+
+#: ui_rejects.py:127
+msgid "Choose the photographs whose rejection should be forgotten."
+msgstr ""
+
+#: ui_rejects.py:141
+#, python-brace-format
+msgid ""
+"Forget the rejection of {n} photograph? It may then be imported by tag again."
+msgid_plural ""
+"Forget the rejection of {n} photographs? They may then be imported by tag "
+"again."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ui_rejects.py:145
+msgid "Forget"
+msgstr ""
+
 #: ui_render.py:38
 msgid "Producing the slideshow"
 msgstr ""
@@ -730,10 +808,6 @@ msgstr ""
 #: ui_render.py:121
 #, python-brace-format
 msgid "{done} of {total}"
-msgstr ""
-
-#: ui_render.py:139
-msgid "Close"
 msgstr ""
 
 #: ui_render.py:142

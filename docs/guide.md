@@ -256,6 +256,32 @@ that came from the files are refreshed.
 
 ---
 
+### Taking a photograph out, and rejection
+
+**Remove from the slideshow** never touches the file. It does record that
+the photograph is not wanted **in this slideshow** — otherwise importing by
+tag again would bring it straight back, since its tag is still on it in
+digiKam.
+
+That is deliberately a mark on the slideshow and not a change to the
+photograph: removing the tag in digiKam would almost always be the opposite
+of what is wanted, and one montage's rejection has no business following
+the photograph around the catalogue.
+
+**File ▸ Rejected photographs…** shows the list and lets a rejection be
+forgotten, one at a time or all at once. A photograph added by hand through
+**Add photos…** is taken without argument and its rejection forgotten:
+choosing it oneself says plainly enough that it is wanted.
+
+Rejections live in the project file, beside the list of photographs.
+Another slideshow, for another occasion, therefore starts afresh.
+
+ℹ Trash folders are left out of the sweep: a photograph deleted in digiKam
+goes to a `.dtrash` folder, and the desktop uses `.Trash-1000` or
+`~/.local/share/Trash`. In all three the file still exists with its tags,
+and a sweep that walked into them would offer photographs that had just
+been thrown away.
+
 ## 3. Putting the photographs in order
 
 The order of the list is the order of the slideshow.
