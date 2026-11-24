@@ -10,7 +10,7 @@ rien ne casse.
 Les msgid sur plusieurs lignes sont recollés avant la recherche, de sorte que
 la table ci-dessous se lit comme du texte ordinaire.
 """
-__version__ = "1.4.0"
+__version__ = "1.5.0"
 
 import os
 import re
@@ -53,6 +53,8 @@ FR = {
     "Measuring {n} piece of music": ("Mesure de {n} pièce musicale",
                                     "Mesure de {n} pièces musicales"),
     "{gain} dB applied to {name}": "{gain} dB appliqués à {name}",
+    "{seconds} s of silence trimmed from {name}":
+        "{seconds} s de silence retirées de {name}",
     "Encoding the video": "Encodage de la vidéo",
     "No image could be produced.": "Aucune image n'a pu être produite.",
 
@@ -326,6 +328,8 @@ FR = {
     "Fade from and to black:": "Fondus au noir :",
     "Even out the level between pieces":
         "Égaliser le niveau entre les pièces",
+    "Trim the silence at each end of a piece":
+        "Couper le silence au début et à la fin des pièces",
     "Music": "Musique",
     "Add files…": "Ajouter des fichiers…",
     "Add a folder…": "Ajouter un dossier…",

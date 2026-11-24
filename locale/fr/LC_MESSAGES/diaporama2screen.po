@@ -45,6 +45,9 @@ msgstr[1] "Mesure de {n} pièces musicales"
 msgid "{gain} dB applied to {name}"
 msgstr "{gain} dB appliqués à {name}"
 
+msgid "{seconds} s of silence trimmed from {name}"
+msgstr "{seconds} s de silence retirées de {name}"
+
 msgid "No DejaVu font found; captions will use the ImageMagick default."
 msgstr "Aucune police DejaVu trouvée ; les légendes utiliseront la police par défaut d'ImageMagick."
 
@@ -610,6 +613,9 @@ msgstr "Retirer"
 
 msgid "Even out the level between pieces"
 msgstr "Égaliser le niveau entre les pièces"
+
+msgid "Trim the silence at each end of a piece"
+msgstr "Couper le silence au début et à la fin des pièces"
 
 msgid "Where the results are written"
 msgstr "Où les résultats sont écrits"

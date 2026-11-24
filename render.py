@@ -23,7 +23,7 @@ as they were because they are known to work:
     French locale writes 4,000 and a comma separates arguments in an FFmpeg
     filter.
 """
-__version__ = "1.2.0"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.3.0"   # version propre à CE fichier ; incrémentée quand il change
 
 import json
 import os
@@ -61,6 +61,18 @@ MUSIC_TARGET_LUFS = -18.0
 MUSIC_PEAK_CEILING = -1.0
 MUSIC_MAX_GAIN = 20.0
 MUSIC_SILENCE = -70.0
+
+# Trimming the silence the pieces themselves carry. Measured on a real
+# montage, four pieces held fifteen seconds of silence between them, the
+# worst of it at the loop point. The cut only ever happens INSIDE silence
+# already detected: a piece whose silence is shorter than the margin is
+# left alone, so a slow piano decay can never be clipped.
+SILENCE_FLOOR_DB = -50.0
+SILENCE_MIN = 0.3
+SILENCE_KEEP = 0.3
+
+_SILENCE_START = re.compile(r"silence_start: (-?[\d.]+)")
+_SILENCE_END = re.compile(r"silence_end: ([\d.]+)")
 
 _TIME_RE = re.compile(r"out_time_ms=(\d+)")
 
@@ -191,19 +203,40 @@ class Renderer:
 
     # ---------- the music, measured ----------
 
-    def _music_gain(self, path):
-        """How many decibels this piece needs to sit at the common level.
+    def _duration(self, path):
+        """Length in seconds, or 0.0. Read from the header, not decoded."""
+        code, text = self._capture_command(
+            ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+             "-of", "default=nw=1:nk=1", path])
+        try:
+            return float(text.strip())
+        except ValueError:
+            return 0.0
 
-        Measured rather than read from the file's ReplayGain tags: ffmpeg
-        applies those for FLAC but not for every format, and a library that
-        mixes formats would come out half corrected, which is worse than
-        not corrected at all because it cannot be predicted. Measuring
-        works whatever the format and whatever the tagging."""
+    def _music_analysis(self, path):
+        """What to do with one piece: (gain in dB, start, end).
+
+        One reading pass answers both questions. The level is measured
+        rather than read from the file's ReplayGain tags: ffmpeg applies
+        those for FLAC but not for every format, and a library that mixes
+        formats would come out half corrected, which is worse than not
+        corrected at all because it cannot be predicted. The silence at
+        each end is detected in the same pass, since the audio is being
+        decoded anyway."""
+        duration = self._duration(path)
         code, text = self._capture_command(
             ["ffmpeg", "-hide_banner", "-nostats", "-i", path,
-             "-af", "loudnorm=print_format=json", "-f", "null", "-"])
+             "-af", "silencedetect=noise={}dB:d={},"
+                    "loudnorm=print_format=json".format(
+                        number(SILENCE_FLOOR_DB), number(SILENCE_MIN)),
+             "-f", "null", "-"])
         if code != 0:
-            return 0.0
+            return 0.0, 0.0, duration, duration
+        begin, finish = self._bounds_from(text, duration)
+        return self._gain_from(text), begin, finish, duration
+
+    @staticmethod
+    def _gain_from(text):
         start, end = text.rfind("{"), text.rfind("}")
         if start < 0 or end < start:
             return 0.0
@@ -220,22 +253,60 @@ class Renderer:
             gain = min(gain, MUSIC_PEAK_CEILING - peak)
         return max(-MUSIC_MAX_GAIN, min(MUSIC_MAX_GAIN, gain))
 
-    def _music_gains(self, files):
+    @staticmethod
+    def _bounds_from(text, duration):
+        """Where the music really starts and ends, from silencedetect.
+
+        A boundary is moved only when the silence is longer than the
+        margin kept, so the cut always falls inside silence."""
+        starts = [float(v) for v in _SILENCE_START.findall(text)]
+        ends = [float(v) for v in _SILENCE_END.findall(text)]
+        begin, finish = 0.0, duration
+
+        if starts and ends and starts[0] <= 0.05:
+            head = ends[0]
+            if head > SILENCE_KEEP:
+                begin = head - SILENCE_KEEP
+
+        tail = None
+        if len(starts) > len(ends):
+            tail = starts[-1]            # silence running to the end
+        elif starts and ends and duration and abs(ends[-1] - duration) < 0.3:
+            tail = starts[-1]
+        if tail is not None and duration - tail > SILENCE_KEEP:
+            finish = tail + SILENCE_KEEP
+
+        if finish <= begin:              # nonsense: leave the piece alone
+            return 0.0, duration
+        return begin, finish
+
+    def _music_plan(self, files, even, trim):
+        """Measure every piece once and say what to do with each."""
         self.report("step", ngettext("Measuring {n} piece of music",
                                      "Measuring {n} pieces of music",
                                      len(files)).format(n=len(files)))
         self.report("progress", (0, len(files)))
-        gains = []
+        plan = []
         for index, path in enumerate(files):
             self._check()
-            gain = self._music_gain(path)
-            gains.append(gain)
-            if abs(gain) >= 0.1:
+            gain, begin, finish, duration = self._music_analysis(path)
+            if not even:
+                gain = 0.0
+            if not trim:
+                begin, finish = 0.0, 0.0
+            plan.append((gain, begin, finish))
+            name = os.path.basename(path)
+            if even and abs(gain) >= 0.1:
                 self.report("log", _("{gain} dB applied to {name}").format(
-                    gain="{:+.1f}".format(gain),
-                    name=os.path.basename(path)))
+                    gain="{:+.1f}".format(gain), name=name))
+            if trim and duration:
+                cut = begin + max(0.0, duration - finish)
+                if cut >= 0.3:
+                    self.report("log", _("{seconds} s of silence trimmed "
+                                         "from {name}").format(
+                        seconds="{:.1f}".format(cut), name=name))
             self.report("progress", (index + 1, len(files)))
-        return gains
+        return plan
 
     # ---------- step one: the images ----------
 
@@ -340,9 +411,10 @@ class Renderer:
             return None
 
         even = bool(self.proj.settings.get("normalise_music", True))
-        gains = self._music_gains(files) if even else [0.0] * len(files)
-        if not even and len(files) == 1:
-            return files[0]          # nothing to join, nothing to even out
+        trim = bool(self.proj.settings.get("trim_music_silence", True))
+        if not even and not trim and len(files) == 1:
+            return files[0]          # nothing to join, measure or trim
+        plan = self._music_plan(files, even, trim)
 
         self.report("step", ngettext("Joining {n} piece of music",
                                      "Joining {n} pieces of music",
@@ -352,11 +424,22 @@ class Renderer:
         parts = []
         for index, path in enumerate(files):
             args += ["-i", path]
-            gain = ("volume={}dB,".format(number(gains[index]))
-                    if abs(gains[index]) >= 0.01 else "")
+            gain, begin, finish = plan[index]
+            chain = ""
+            if begin > 0.01 or finish > 0.01:
+                # atrim cuts, asetpts restarts the clock, without which
+                # concat would honour the gap it was asked to remove.
+                bounds = []
+                if begin > 0.01:
+                    bounds.append("start=" + number(begin))
+                if finish > 0.01:
+                    bounds.append("end=" + number(finish))
+                chain += "atrim=" + ":".join(bounds) + ",asetpts=PTS-STARTPTS,"
+            if abs(gain) >= 0.01:
+                chain += "volume={}dB,".format(number(gain))
             parts.append("[{}:a]{}aresample=48000,"
                          "aformat=sample_fmts=s16:channel_layouts=stereo"
-                         "[p{}];".format(index, gain, index))
+                         "[p{}];".format(index, chain, index))
         graph = "".join(parts) + "".join(
             "[p{}]".format(i) for i in range(len(files)))
         graph += "concat=n={}:v=0:a=1[bs]".format(len(files))

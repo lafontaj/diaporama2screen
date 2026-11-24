@@ -369,6 +369,19 @@ La mesure s'applique aussi à une pièce seule : il n'y a alors rien à
 égaliser entre morceaux, mais le niveau absolu reste le même d'un montage
 à l'autre.
 
+**Couper le silence au début et à la fin des pièces** est coché par défaut.
+Les enregistrements en portent souvent plusieurs secondes à chaque bout, et
+le collage les additionne : sur un montage de quatre pièces, près de quinze
+secondes de silence se répartissaient entre les morceaux, dont sept au point
+de bouclage — là où la fin de la dernière pièce rejoint le début de la
+première.
+
+La découpe garde une respiration de trois dixièmes de seconde de chaque
+côté, et ne coupe **que dans du silence déjà détecté** : sous -50 dB pendant
+au moins trois dixièmes de seconde. Une pièce dont le silence est plus court
+que cette marge n'est pas touchée du tout, de sorte qu'une résonance de
+piano ne peut pas être entamée.
+
 ### Où les résultats sont écrits
 
 C'est la question qu'on se pose toujours trop tard, donc les deux chemins

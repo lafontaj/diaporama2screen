@@ -350,6 +350,17 @@ and however carefully the library was tagged.
 A single piece is measured too: there is nothing to even out between
 pieces, but the level stays the same from one montage to the next.
 
+**Trim the silence at each end of a piece** is ticked by default.
+Recordings often carry several seconds of it at either end, and joining
+them adds those together: on a montage of four pieces, close to fifteen
+seconds of silence sat between the movements, seven of them at the loop
+point — where the end of the last piece meets the start of the first.
+
+The trim keeps three tenths of a second of breath on each side, and only
+ever cuts **inside silence already detected**: below -50 dB for at least
+three tenths of a second. A piece whose silence is shorter than that margin
+is left alone, so a piano's decay cannot be clipped.
+
 ### Where the results are written
 
 This is the question one always asks too late, so both paths are shown
