@@ -617,6 +617,9 @@ msgstr "Égaliser le niveau entre les pièces"
 msgid "Trim the silence at each end of a piece"
 msgstr "Couper le silence au début et à la fin des pièces"
 
+msgid "Fade out each piece over:"
+msgstr "Fondu sortant de chaque pièce :"
+
 msgid "Where the results are written"
 msgstr "Où les résultats sont écrits"
 

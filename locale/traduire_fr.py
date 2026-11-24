@@ -10,7 +10,7 @@ rien ne casse.
 Les msgid sur plusieurs lignes sont recollés avant la recherche, de sorte que
 la table ci-dessous se lit comme du texte ordinaire.
 """
-__version__ = "1.5.0"
+__version__ = "1.6.0"
 
 import os
 import re
@@ -330,6 +330,7 @@ FR = {
         "Égaliser le niveau entre les pièces",
     "Trim the silence at each end of a piece":
         "Couper le silence au début et à la fin des pièces",
+    "Fade out each piece over:": "Fondu sortant de chaque pièce :",
     "Music": "Musique",
     "Add files…": "Ajouter des fichiers…",
     "Add a folder…": "Ajouter un dossier…",

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: diaporama2screen 1.4.0\n"
+"Project-Id-Version: diaporama2screen 1.5.0\n"
 "Report-Msgid-Bugs-To: jean\n"
-"POT-Creation-Date: 2026-11-24 07:39-0500\n"
+"POT-Creation-Date: 2026-11-24 08:40-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,57 +54,57 @@ msgstr ""
 msgid "the file still holds its old caption"
 msgstr ""
 
-#: render.py:285
+#: render.py:305
 #, python-brace-format
 msgid "Measuring {n} piece of music"
 msgid_plural "Measuring {n} pieces of music"
 msgstr[0] ""
 msgstr[1] ""
 
-#: render.py:300
+#: render.py:320
 #, python-brace-format
 msgid "{gain} dB applied to {name}"
 msgstr ""
 
-#: render.py:305
+#: render.py:325
 #, python-brace-format
 msgid "{seconds} s of silence trimmed from {name}"
 msgstr ""
 
-#: render.py:318
+#: render.py:338
 msgid "No DejaVu font found; captions will use the ImageMagick default."
 msgstr ""
 
-#: render.py:338
+#: render.py:358
 msgid "Laying out the images"
 msgstr ""
 
-#: render.py:364
+#: render.py:384
 #, python-brace-format
 msgid "Caption unusable for {name}"
 msgstr ""
 
-#: render.py:374
+#: render.py:394
 #, python-brace-format
 msgid "Could not read {name}"
 msgstr ""
 
-#: render.py:419
+#: render.py:452
 #, python-brace-format
 msgid "Joining {n} piece of music"
 msgid_plural "Joining {n} pieces of music"
 msgstr[0] ""
 msgstr[1] ""
 
-#: render.py:450
+#: render.py:488
 msgid "The music could not be joined; the video will be silent."
 msgstr ""
 
-#: render.py:522
+#: render.py:589
 msgid "Encoding the video"
 msgstr ""
 
-#: render.py:538
+#: render.py:605
 msgid "No image could be produced."
 msgstr ""
 
@@ -125,7 +125,7 @@ msgstr ""
 msgid "All files"
 msgstr ""
 
-#: ui_dialogs.py:232 ui_settings.py:171
+#: ui_dialogs.py:232 ui_settings.py:177
 msgid "Add music files"
 msgstr ""
 
@@ -179,7 +179,7 @@ msgstr ""
 msgid "Folder:"
 msgstr ""
 
-#: ui_import.py:90 ui_picker.py:99 ui_settings.py:131 ui_settings.py:142
+#: ui_import.py:90 ui_picker.py:99 ui_settings.py:137 ui_settings.py:148
 msgid "Change…"
 msgstr ""
 
@@ -618,7 +618,7 @@ msgstr ""
 msgid "Produce"
 msgstr ""
 
-#: ui_main.py:798 ui_settings.py:154
+#: ui_main.py:798 ui_settings.py:160
 msgid "Produce the video"
 msgstr ""
 
@@ -904,62 +904,66 @@ msgstr ""
 msgid "Trim the silence at each end of a piece"
 msgstr ""
 
-#: ui_settings.py:123
+#: ui_settings.py:126
+msgid "Fade out each piece over:"
+msgstr ""
+
+#: ui_settings.py:129
 msgid "Where the results are written"
 msgstr ""
 
-#: ui_settings.py:128
+#: ui_settings.py:134
 msgid "Images:"
 msgstr ""
 
-#: ui_settings.py:133 ui_settings.py:145
+#: ui_settings.py:139 ui_settings.py:151
 msgid "Automatic"
 msgstr ""
 
-#: ui_settings.py:137
+#: ui_settings.py:143
 msgid "Video:"
 msgstr ""
 
-#: ui_settings.py:178
+#: ui_settings.py:184
 msgid "Add a music folder"
 msgstr ""
 
-#: ui_settings.py:243
+#: ui_settings.py:249
 msgid "(missing)"
 msgstr ""
 
-#: ui_settings.py:246
+#: ui_settings.py:252
 msgid "No music: the video will be silent."
 msgstr ""
 
-#: ui_settings.py:250
+#: ui_settings.py:256
 #, python-brace-format
 msgid "{n} piece, played then looped."
 msgid_plural "{n} pieces, played in this order then looped."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ui_settings.py:260
+#: ui_settings.py:266
 msgid "Folder for the laid-out images"
 msgstr ""
 
-#: ui_settings.py:270
+#: ui_settings.py:276
 msgid "Where to write the video"
 msgstr ""
 
-#: ui_settings.py:273
+#: ui_settings.py:279
 msgid "Video"
 msgstr ""
 
-#: ui_settings.py:286
+#: ui_settings.py:292
 msgid "  (automatic)"
 msgstr ""
 
-#: ui_settings.py:345
+#: ui_settings.py:354
 msgid "No photo in the slideshow yet."
 msgstr ""
 
-#: ui_settings.py:350
+#: ui_settings.py:359
 #, python-brace-format
 msgid "{n} photo — {duration} of video"
 msgid_plural "{n} photos — {duration} of video"

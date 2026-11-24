@@ -23,7 +23,7 @@ as they were because they are known to work:
     French locale writes 4,000 and a comma separates arguments in an FFmpeg
     filter.
 """
-__version__ = "1.3.0"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.4.0"   # version propre à CE fichier ; incrémentée quand il change
 
 import json
 import os
@@ -66,10 +66,21 @@ MUSIC_SILENCE = -70.0
 # montage, four pieces held fifteen seconds of silence between them, the
 # worst of it at the loop point. The cut only ever happens INSIDE silence
 # already detected: a piece whose silence is shorter than the margin is
-# left alone, so a slow piano decay can never be clipped.
-SILENCE_FLOOR_DB = -50.0
+# left alone.
+#
+# The floor is -80 dB and not something closer to hearing. At -50 dB a
+# piano's decay is declared silent while it is still sounding — measured
+# on one of these pieces, nearly four seconds of decay sat between the two
+# thresholds, and cutting there was audible as a piece stopping before it
+# had finished. -80 dB is the threshold this household already settled on
+# for the same question elsewhere.
+SILENCE_FLOOR_DB = -80.0
 SILENCE_MIN = 0.3
 SILENCE_KEEP = 0.3
+
+# A bed built to the length of the film could otherwise grow without end
+# behind a long slideshow and a short piece of music.
+MUSIC_MAX_PIECES = 60
 
 _SILENCE_START = re.compile(r"silence_start: (-?[\d.]+)")
 _SILENCE_END = re.compile(r"silence_end: ([\d.]+)")
@@ -202,6 +213,15 @@ class Renderer:
         return process.returncode, out or ""
 
     # ---------- the music, measured ----------
+
+    def video_seconds(self, photo_count):
+        """How long the film will run. The cross-fades overlap, so the
+        photographs do not simply add up."""
+        seconds = float(self.proj.settings.get("seconds_per_photo", 10))
+        fade = float(self.proj.settings.get("crossfade", 2))
+        if photo_count <= 0:
+            return 0.0
+        return photo_count * seconds - (photo_count - 1) * fade
 
     def _duration(self, path):
         """Length in seconds, or 0.0. Read from the header, not decoded."""
@@ -401,10 +421,17 @@ class Renderer:
 
     # ---------- the music bed ----------
 
-    def build_music(self, tmp):
+    def build_music(self, tmp, seconds_needed=0.0):
         """Return the path of the music to use, or None.
-        Several pieces are joined into one file first, so that looping repeats
-        the whole sequence rather than the first piece."""
+
+        Each piece is faded out at its end and the next begins at full
+        volume, without overlap. Trimming takes away silence, but a long
+        decay is music: cutting it is heard, and letting it run under the
+        next entry muddles both. A fade brings it down deliberately.
+
+        The bed is built long enough to cover the whole film rather than
+        left to repeat, so that the moment where the music starts over gets
+        the same fade as any other junction instead of being a splice."""
         files = [f for f in self.proj.settings.get("music_files", [])
                  if os.path.isfile(f)]
         if not files:
@@ -412,23 +439,29 @@ class Renderer:
 
         even = bool(self.proj.settings.get("normalise_music", True))
         trim = bool(self.proj.settings.get("trim_music_silence", True))
-        if not even and not trim and len(files) == 1:
-            return files[0]          # nothing to join, measure or trim
-        plan = self._music_plan(files, even, trim)
+        fade = max(0.0, float(self.proj.settings.get("music_fade_out", 3.0)))
+        if not even and not trim and not fade and len(files) == 1:
+            return files[0]          # nothing to join, measure, trim or fade
 
+        plan = self._music_plan(files, even, trim)
+        lengths = [max(0.1, (finish or self._duration(path)) - begin)
+                   for (gain, begin, finish), path
+                   in zip(plan, files)]
+
+        order = self._music_order(lengths, seconds_needed)
         self.report("step", ngettext("Joining {n} piece of music",
                                      "Joining {n} pieces of music",
-                                     len(files)).format(
-            n=len(files)))
+                                     len(order)).format(n=len(order)))
+
         args = ["ffmpeg", "-hide_banner", "-loglevel", "error", "-y"]
         parts = []
-        for index, path in enumerate(files):
-            args += ["-i", path]
+        for position, index in enumerate(order):
+            args += ["-i", files[index]]
             gain, begin, finish = plan[index]
             chain = ""
             if begin > 0.01 or finish > 0.01:
-                # atrim cuts, asetpts restarts the clock, without which
-                # concat would honour the gap it was asked to remove.
+                # atrim cuts, asetpts restarts the clock, without which the
+                # join would honour the gap it was asked to remove.
                 bounds = []
                 if begin > 0.01:
                     bounds.append("start=" + number(begin))
@@ -437,12 +470,17 @@ class Renderer:
                 chain += "atrim=" + ":".join(bounds) + ",asetpts=PTS-STARTPTS,"
             if abs(gain) >= 0.01:
                 chain += "volume={}dB,".format(number(gain))
+            # The fade belongs to the piece that is ending; the one that
+            # follows comes in at full volume.
+            if fade > 0.01 and lengths[index] > fade + 0.5:
+                chain += "afade=t=out:st={}:d={},".format(
+                    number(lengths[index] - fade), number(fade))
             parts.append("[{}:a]{}aresample=48000,"
                          "aformat=sample_fmts=s16:channel_layouts=stereo"
-                         "[p{}];".format(index, chain, index))
-        graph = "".join(parts) + "".join(
-            "[p{}]".format(i) for i in range(len(files)))
-        graph += "concat=n={}:v=0:a=1[bs]".format(len(files))
+                         "[p{}];".format(position, chain, position))
+
+        parts.append(self._music_join(len(order)))
+        graph = "".join(parts).rstrip(";")
         bed = os.path.join(tmp, "bande-son.wav")
         args += ["-filter_complex", graph, "-map", "[bs]",
                  "-c:a", "pcm_s16le", bed]
@@ -451,6 +489,35 @@ class Renderer:
                                  "the video will be silent."))
             return None
         return bed
+
+    @staticmethod
+    def _music_order(lengths, seconds_needed):
+        """Which piece plays when, repeating the sequence as needed.
+
+        Building the bed to the length of the film costs a little disk and
+        buys a cross-faded junction where the music starts over — the one
+        place a listener hears the montage rather than the music."""
+        count = len(lengths)
+        order = list(range(count))
+        if seconds_needed <= 0:
+            return order
+        covered = sum(lengths)
+        while covered < seconds_needed and len(order) < MUSIC_MAX_PIECES:
+            for index in range(count):
+                order.append(index)
+                covered += lengths[index]
+                if covered >= seconds_needed or len(order) >= MUSIC_MAX_PIECES:
+                    break
+        return order
+
+    @staticmethod
+    def _music_join(count):
+        """The pieces, end to end. They do not overlap: each one has
+        already been faded out, and the next is meant to arrive whole."""
+        if count == 1:
+            return "[p0]anull[bs];"
+        return ("".join("[p{}]".format(i) for i in range(count))
+                + "concat=n={}:v=0:a=1[bs];".format(count))
 
     # ---------- step two: the video ----------
 
@@ -461,7 +528,7 @@ class Renderer:
         fade = float(proj.settings.get("crossfade", 2))
         black = float(proj.settings.get("black_fade", 2))
         count = len(images)
-        total = count * seconds - (count - 1) * fade
+        total = self.video_seconds(count)
 
         target = proj.video_path()
         os.makedirs(os.path.dirname(target) or ".", exist_ok=True)
@@ -538,7 +605,7 @@ class Renderer:
                 self.report("log", _("No image could be produced."))
                 self.report("done", None)
                 return
-            music = self.build_music(tmp)
+            music = self.build_music(tmp, self.video_seconds(len(images)))
             video = self.build_video(images, music)
             self.report("done", video)
         except Cancelled:

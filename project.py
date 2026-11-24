@@ -12,7 +12,7 @@ an OVERRIDE for a photo: a text that is used for the slideshow without being
 written back into the archive. That is the safe default; writing into the
 originals is a separate, explicit action.
 """
-__version__ = "1.4.0"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.5.0"   # version propre à CE fichier ; incrémentée quand il change
 
 import json
 import os
@@ -41,6 +41,10 @@ DEFAULT_SETTINGS = {
     # Cut the silence the pieces carry at each end, keeping a
     # breath. Only ever cuts inside silence already detected.
     "trim_music_silence": True,
+    # Seconds of fade at the end of each piece. A long decay is
+    # music: it is brought down rather than cut, and the piece
+    # that follows arrives at full volume.
+    "music_fade_out": 3.0,
     # Empty means "follow the project name"; a path set by the user is kept.
     "images_dir": "",
     "video_path": "",

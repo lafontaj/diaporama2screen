@@ -357,9 +357,32 @@ seconds of silence sat between the movements, seven of them at the loop
 point — where the end of the last piece meets the start of the first.
 
 The trim keeps three tenths of a second of breath on each side, and only
-ever cuts **inside silence already detected**: below -50 dB for at least
+ever cuts **inside silence already detected**: below -80 dB for at least
 three tenths of a second. A piece whose silence is shorter than that margin
-is left alone, so a piano's decay cannot be clipped.
+is left alone.
+
+The floor is deliberately low. Around -50 dB a piano's decay is declared
+silent while it is still sounding: on one of the pieces measured, nearly
+four seconds of decay sat between the two thresholds, and cutting there was
+audible as a piece stopping before it had finished. Some recordings end
+above -80 dB, already truncated in the recording itself; those are not
+touched at all.
+
+**Fade out each piece over** — three seconds by default. The piece that is
+ending is brought down to silence over that time, and the next one comes in
+**at full volume, without overlap**. A cross-fade would have both sounding
+at once; here each piece keeps its whole entry, and only its ending is
+shortened.
+
+This is what settles an ending that drags: cutting a piano's decay is
+heard, letting it run under the next entry muddles both, but bringing it
+down deliberately bothers nobody. Measured on a real montage, the piece
+that is ending falls ten to seventeen decibels further in its last second
+than it would on a cut, while the next starts at an identical level.
+
+The bed is built to the length of the film rather than looped, so the
+return to the first piece gets the same fade as any other junction instead
+of being a splice.
 
 ### Where the results are written
 

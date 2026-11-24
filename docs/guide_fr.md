@@ -377,10 +377,33 @@ de bouclage — là où la fin de la dernière pièce rejoint le début de la
 première.
 
 La découpe garde une respiration de trois dixièmes de seconde de chaque
-côté, et ne coupe **que dans du silence déjà détecté** : sous -50 dB pendant
+côté, et ne coupe **que dans du silence déjà détecté** : sous -80 dB pendant
 au moins trois dixièmes de seconde. Une pièce dont le silence est plus court
-que cette marge n'est pas touchée du tout, de sorte qu'une résonance de
-piano ne peut pas être entamée.
+que cette marge n'est pas touchée du tout.
+
+Le seuil est bas à dessein. Vers -50 dB, la décroissance d'un piano est
+déclarée silencieuse alors qu'elle s'entend encore : sur une des pièces
+mesurées, près de quatre secondes de résonance se trouvaient entre les deux
+seuils, et couper là s'entendait comme une pièce qui s'arrête avant d'avoir
+fini. Certains enregistrements se terminent d'ailleurs au-dessus de -80 dB,
+donc déjà tronqués : ceux-là ne sont pas touchés du tout.
+
+**Fondu sortant de chaque pièce** — trois secondes par défaut. La pièce qui
+se termine est amenée au silence sur cette durée, et la suivante entre **à
+plein volume, sans chevauchement**. Un fondu enchaîné ferait entendre les
+deux ensemble ; ici chaque pièce garde son entrée entière, et seule sa fin
+est raccourcie.
+
+C'est ce qui règle les fins qui traînent : couper une décroissance de piano
+s'entend, la laisser courir sous l'entrée suivante brouille les deux, mais
+la ramener au silence délibérément ne gêne personne. Mesuré sur un montage
+réel, la pièce qui s'éteint descend de dix à dix-sept décibels de plus dans
+sa dernière seconde qu'avec une coupe, pendant que la suivante démarre à un
+niveau identique.
+
+La bande-son est construite à la longueur du film plutôt que mise en boucle.
+Le retour au premier morceau reçoit ainsi le même fondu que les autres
+jonctions, au lieu d'être une soudure.
 
 ### Où les résultats sont écrits
 

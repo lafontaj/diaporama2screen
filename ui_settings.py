@@ -5,7 +5,7 @@ ui_settings.py — The production panel: format, timings and music.
 Kept apart from the main window so that neither file becomes the kind of
 monolith that is slow to read and slow to load.
 """
-__version__ = "1.4.0"   # version propre à CE fichier ; incrémentée quand il change
+__version__ = "1.5.0"   # version propre à CE fichier ; incrémentée quand il change
 
 import os
 import tkinter as tk
@@ -119,6 +119,12 @@ class SettingsPanel(ttk.Frame):
                         command=self._on_change,
                         text=_("Trim the silence at each end of a piece")
                         ).grid(row=3, column=0, columnspan=3, sticky="w")
+
+        fondu = ttk.Frame(music)
+        fondu.grid(row=4, column=0, columnspan=3, sticky="w", pady=(4, 0))
+        self.var_music_fade = tk.StringVar(value="3")
+        self._spin(fondu, _("Fade out each piece over:"), self.var_music_fade,
+                   0.0, 10.0, 0)
 
         output = ttk.LabelFrame(self, text=_("Where the results are written"),
                                 padding=(6, 4))
@@ -303,6 +309,7 @@ class SettingsPanel(ttk.Frame):
         self.var_black.set(self._clean(s.get("black_fade", 2)))
         self.var_normalise.set(bool(s.get("normalise_music", True)))
         self.var_trim.set(bool(s.get("trim_music_silence", True)))
+        self.var_music_fade.set(self._clean(s.get("music_fade_out", 3)))
         self._loading = False
         self.refresh_music()
         self.refresh_outputs()
@@ -333,6 +340,8 @@ class SettingsPanel(ttk.Frame):
         proj.set_setting("black_fade", self._number(self.var_black, 2))
         proj.set_setting("normalise_music", bool(self.var_normalise.get()))
         proj.set_setting("trim_music_silence", bool(self.var_trim.get()))
+        proj.set_setting("music_fade_out",
+                         self._number(self.var_music_fade, 3))
         self.refresh_estimate()
         self.app.update_title()
 
